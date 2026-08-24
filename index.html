@@ -1,1240 +1,1018 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark scroll-smooth">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Economize com App - Finanças Pessoais & Aplicativos Inteligentes</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#fff7ed',
-              100: '#ffedd5',
-              400: '#fb923c',
-              500: '#f97316',
-              600: '#ea580c',
-              700: '#c2410c',
-              glow: '#ff5500',
-            },
-            dark: {
-              bg: '#050508',
-              card: 'rgba(18, 18, 24, 0.65)',
-              border: 'rgba(255, 255, 255, 0.08)',
-              hoverBorder: 'rgba(249, 115, 22, 0.4)',
-            }
-          },
-          backgroundImage: {
-            'glow-radial': 'radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.18) 0%, rgba(5, 5, 8, 0) 70%)',
-            'glow-hero': 'radial-gradient(circle at 50% 20%, rgba(255, 85, 0, 0.22) 0%, rgba(234, 88, 12, 0.08) 45%, rgba(5, 5, 8, 0) 75%)',
-            'glass-card': 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)',
-            'orange-gradient': 'linear-gradient(135deg, #ff6b00 0%, #ea580c 100%)',
-          },
-          boxShadow: {
-            'orange-glow': '0 0 35px -5px rgba(249, 115, 22, 0.35)',
-            'orange-sm': '0 0 15px -3px rgba(249, 115, 22, 0.3)',
-            'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #050508;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #27272a;
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #f97316;
-    }
-
-    /* Ambient halo effect animation */
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.6; transform: scale(1); }
-      50% { opacity: 0.95; transform: scale(1.05); }
-    }
-    .animate-glow {
-      animation: pulseGlow 8s ease-in-out infinite;
-    }
-
-    /* Glass card blur backdrop support */
-    .glass-panel {
-      background: rgba(18, 18, 26, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .glass-panel:hover {
-      border-color: rgba(249, 115, 22, 0.4);
-      box-shadow: 0 10px 30px -10px rgba(249, 115, 22, 0.15);
-    }
-  </style>
-</head>
-<body class="bg-[#050508] text-gray-200 antialiased font-sans selection:bg-brand-500 selection:text-white min-h-screen relative overflow-x-hidden">
-
-  <!-- Ambient Top Glowing Light Effect -->
-  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-brand-glow/20 blur-[130px] rounded-full pointer-events-none z-0 animate-glow"></div>
-  <div class="fixed top-[40%] -right-[200px] w-[500px] h-[500px] bg-brand-600/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
-
-  <!-- Header / Navigation -->
-  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-4 sm:px-8" id="navbar">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      
-      <!-- Logo -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-orange-gradient flex items-center justify-center shadow-orange-glow group-hover:scale-105 transition-transform">
-          <i class="fa-solid fa-wallet text-white text-lg"></i>
-        </div>
-        <div class="flex flex-col">
-          <span class="font-extrabold text-lg text-white tracking-tight flex items-center gap-1">
-            Economize<span class="text-brand-500">.comApp</span>
-          </span>
-          <span class="text-[10px] text-gray-400 -mt-1 tracking-wider uppercase font-semibold">Finanças Inteligentes</span>
-        </div>
-      </a>
-
-      <!-- Floating Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center gap-1 bg-neutral-900/80 backdrop-blur-md border border-white/10 px-4 py-1.5 rounded-full shadow-glass">
-        <a href="#artigos" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-brand-400 transition-colors rounded-full hover:bg-white/5">Artigos</a>
-        <a href="#apps" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-brand-400 transition-colors rounded-full hover:bg-white/5">Melhores Apps</a>
-        <a href="#simulador" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-brand-400 transition-colors rounded-full hover:bg-white/5">Simulador</a>
-        <a href="#faq" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-brand-400 transition-colors rounded-full hover:bg-white/5">Dúvidas</a>
-      </nav>
-
-      <!-- Action Button & Mobile Toggle -->
-      <div class="flex items-center gap-3">
-        <a href="#simulador" class="hidden sm:inline-flex items-center gap-2 bg-orange-gradient hover:opacity-90 text-white font-semibold text-sm px-5 py-2.5 rounded-full transition-all shadow-orange-glow hover:shadow-orange-glow/80 hover:scale-[1.02] active:scale-95">
-          <span>Simular Economia</span>
-          <i class="fa-solid fa-arrow-right text-xs"></i>
-        </a>
-
-        <!-- Mobile Menu Button -->
-        <button id="mobileMenuBtn" class="md:hidden p-2.5 rounded-xl bg-neutral-900/80 border border-white/10 text-gray-300 hover:text-white" aria-label="Abrir Menu">
-          <i class="fa-solid fa-bars text-lg" id="menuIcon"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Navigation Drawer -->
-    <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto mt-3 p-5 rounded-2xl glass-panel space-y-3 flex-col text-center">
-      <a href="#artigos" class="block py-2 text-base font-medium text-gray-200 hover:text-brand-400">Artigos & Tutoriais</a>
-      <a href="#apps" class="block py-2 text-base font-medium text-gray-200 hover:text-brand-400">Top Aplicativos</a>
-      <a href="#simulador" class="block py-2 text-base font-medium text-gray-200 hover:text-brand-400">Simulador de Economia</a>
-      <a href="#faq" class="block py-2 text-base font-medium text-gray-200 hover:text-brand-400">Perguntas Frequentes</a>
-      <a href="#simulador" class="inline-flex w-full items-center justify-center gap-2 bg-orange-gradient text-white font-semibold py-3 rounded-xl shadow-orange-glow">
-        Simular Economia
-      </a>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 px-4 sm:px-8 overflow-hidden">
-    <div class="max-w-6xl mx-auto text-center relative z-10">
-      
-      <!-- Top Pill Tag -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-xs sm:text-sm font-semibold text-brand-400 mb-8 border border-brand-500/30">
-        <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
-        <i class="fa-solid fa-bolt text-brand-400"></i>
-        <span>Economize até R$ 4.800/ano usando os apps certos</span>
-      </div>
-
-      <!-- Main Headline -->
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.15] max-w-4xl mx-auto">
-        Transforme Suas Finanças Com <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-orange-500 to-amber-300">Aplicativos Inteligentes</span>
-      </h1>
-
-      <!-- Subtitle -->
-      <p class="mt-6 text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto font-normal leading-relaxed">
-        Análises imparciais, estratégias de cashback, rendimento automático e controle financeiro simplificado para o seu celular.
-      </p>
-
-      <!-- Call To Action Buttons -->
-      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#artigos" class="w-full sm:w-auto px-8 py-4 rounded-full bg-orange-gradient text-white font-bold text-base shadow-orange-glow hover:shadow-orange-glow/80 hover:scale-[1.03] transition-all flex items-center justify-center gap-3">
-          <span>Explorar Guias & Análises</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </a>
-        <a href="#simulador" class="w-full sm:w-auto px-8 py-4 rounded-full glass-panel text-gray-200 font-semibold text-base hover:bg-white/10 transition-all flex items-center justify-center gap-2 border border-white/10">
-          <i class="fa-solid fa-calculator text-brand-400"></i>
-          <span>Calcular Minha Economia</span>
-        </a>
-      </div>
-
-      <!-- Modern Showcase Widget Grid (Dark UI Reference Style) -->
-      <div class="mt-16 sm:mt-20 relative max-w-5xl mx-auto">
-        
-        <!-- Subtle Glow frame -->
-        <div class="absolute -inset-1 bg-gradient-to-r from-brand-500/30 via-orange-600/10 to-amber-500/30 rounded-3xl blur-2xl opacity-60"></div>
-
-        <div class="relative glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 text-left">
-          
-          <!-- Mockup Header -->
-          <div class="flex items-center justify-between pb-6 mb-6 border-b border-white/10">
-            <div class="flex items-center gap-3">
-              <div class="flex gap-2">
-                <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-                <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-                <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-              </div>
-              <span class="text-xs font-mono text-gray-400">economize-dashboard.v2.4</span>
-            </div>
-            <div class="flex items-center gap-2 text-xs text-brand-400 font-semibold bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">
-              <i class="fa-solid fa-chart-line"></i> +R$ 380,00 economizados este mês
-            </div>
-          </div>
-
-          <!-- Feature Cards Inner Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-            
-            <!-- Card 1: Gestão Financeira -->
-            <div class="bg-neutral-900/90 rounded-2xl p-5 border border-white/5 space-y-3 hover:border-brand-500/40 transition-colors">
-              <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
-                  <i class="fa-solid fa-chart-pie text-lg"></i>
-                </div>
-                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Ativo</span>
-              </div>
-              <div>
-                <h4 class="text-sm text-gray-400">Controle Automático</h4>
-                <p class="text-xl font-bold text-white mt-1">R$ 1.250,00</p>
-                <p class="text-xs text-gray-500 mt-1">Categorizado em 3 apps integrados</p>
-              </div>
-              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
-                <div class="bg-blue-500 h-full w-[70%]"></div>
-              </div>
-            </div>
-
-            <!-- Card 2: Cashback Recebido -->
-            <div class="bg-neutral-900/90 rounded-2xl p-5 border border-white/5 space-y-3 hover:border-brand-500/40 transition-colors">
-              <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-xl bg-orange-500/10 text-brand-400 flex items-center justify-center">
-                  <i class="fa-solid fa-coins text-lg"></i>
-                </div>
-                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">+18% vs mês passado</span>
-              </div>
-              <div>
-                <h4 class="text-sm text-gray-400">Cashback Acumulado</h4>
-                <p class="text-xl font-bold text-white mt-1">R$ 184,50</p>
-                <p class="text-xs text-gray-500 mt-1">Retorno direto na sua conta bancária</p>
-              </div>
-              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
-                <div class="bg-brand-500 h-full w-[85%]"></div>
-              </div>
-            </div>
-
-            <!-- Card 3: Rendimento de Carteira -->
-            <div class="bg-neutral-900/90 rounded-2xl p-5 border border-white/5 space-y-3 hover:border-brand-500/40 transition-colors">
-              <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-                  <i class="fa-solid fa-arrow-trend-up text-lg"></i>
-                </div>
-                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">100% a 110% CDI</span>
-              </div>
-              <div>
-                <h4 class="text-sm text-gray-400">Rendimento Automático</h4>
-                <p class="text-xl font-bold text-white mt-1">R$ 95,20 /mês</p>
-                <p class="text-xs text-gray-500 mt-1">Dinheiro parado rendendo diariamente</p>
-              </div>
-              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
-                <div class="bg-emerald-500 h-full w-[90%]"></div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Stats & Brands Bar -->
-  <section class="border-y border-white/5 bg-neutral-950/50 py-10 px-4">
-    <div class="max-w-6xl mx-auto">
-      <p class="text-center text-xs font-semibold text-gray-500 uppercase tracking-widest mb-8">
-        Análises e tutoriais focados nos principais aplicativos do Brasil
-      </p>
-      
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-6 items-center justify-items-center opacity-70 grayscale hover:grayscale-0 transition-all">
-        <div class="flex items-center gap-2 text-gray-300 font-bold text-lg">
-          <i class="fa-solid fa-wallet text-purple-400"></i> NuBank
-        </div>
-        <div class="flex items-center gap-2 text-gray-300 font-bold text-lg">
-          <i class="fa-solid fa-[#00d09c] fa-credit-card text-emerald-400"></i> PicPay
-        </div>
-        <div class="flex items-center gap-2 text-gray-300 font-bold text-lg">
-          <i class="fa-solid fa-gift text-red-400"></i> Méliuz
-        </div>
-        <div class="flex items-center gap-2 text-gray-300 font-bold text-lg">
-          <i class="fa-solid fa-building-columns text-orange-400"></i> Inter
-        </div>
-        <div class="flex items-center gap-2 text-gray-300 font-bold text-lg col-span-2 md:col-span-1">
-          <i class="fa-solid fa-piggy-bank text-blue-400"></i> Mobills
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Interactive Calculator Section -->
-  <section id="simulador" class="py-24 px-4 sm:px-8 relative">
-    <div class="max-w-4xl mx-auto">
-      
-      <!-- Section Header -->
-      <div class="text-center mb-12">
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-500">Ferramenta Interativa</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">
-          Simulador de Economia Mensal
-        </h2>
-        <p class="text-gray-400 mt-3 text-base">
-          Descubra quanto você pode economizar por ano ajustando o uso de aplicativos de gestão, cashback e investimentos.
-        </p>
-      </div>
-
-      <!-- Calculator Card -->
-      <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-white/10 relative overflow-hidden">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          
-          <!-- Left Controls -->
-          <div class="space-y-6">
-            
-            <!-- Gastos Mensais Slider -->
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <label class="text-sm font-semibold text-gray-300">Gasto mensal com Cartão / Compras</label>
-                <span id="spendValueText" class="text-sm font-bold text-brand-400">R$ 2.500</span>
-              </div>
-              <input type="range" id="spendRange" min="500" max="10000" step="250" value="2500" class="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
-            </div>
-
-            <!-- Options Checkboxes -->
-            <div class="space-y-3">
-              <label class="text-sm font-semibold text-gray-300 block">Recursos Utilizados:</label>
-
-              <label class="flex items-center gap-3 p-3 rounded-xl bg-neutral-900/60 border border-white/5 cursor-pointer hover:border-brand-500/30 transition-colors">
-                <input type="checkbox" id="chkCashback" checked class="w-4 h-4 rounded text-brand-500 focus:ring-brand-500 accent-brand-500">
-                <div>
-                  <div class="text-sm font-medium text-white">Cashback e Cupons (média 3%)</div>
-                  <div class="text-xs text-gray-400">Méliuz, Ame Digital, Cuponeria</div>
-                </div>
-              </label>
-
-              <label class="flex items-center gap-3 p-3 rounded-xl bg-neutral-900/60 border border-white/5 cursor-pointer hover:border-brand-500/30 transition-colors">
-                <input type="checkbox" id="chkRendimento" checked class="w-4 h-4 rounded text-brand-500 focus:ring-brand-500 accent-brand-500">
-                <div>
-                  <div class="text-sm font-medium text-white">Conta com Rendimento 100%+ CDI</div>
-                  <div class="text-xs text-gray-400">Sofisa, NuBank, PicPay</div>
-                </div>
-              </label>
-
-              <label class="flex items-center gap-3 p-3 rounded-xl bg-neutral-900/60 border border-white/5 cursor-pointer hover:border-brand-500/30 transition-colors">
-                <input type="checkbox" id="chkGestao" checked class="w-4 h-4 rounded text-brand-500 focus:ring-brand-500 accent-brand-500">
-                <div>
-                  <div class="text-sm font-medium text-white">Corte de Assinaturas e Tarifas</div>
-                  <div class="text-xs text-gray-400">Análise via Mobills ou Organizze</div>
-                </div>
-              </label>
-            </div>
-
-          </div>
-
-          <!-- Right Calculation Result -->
-          <div class="bg-neutral-900/90 rounded-2xl p-6 border border-white/10 text-center space-y-6 flex flex-col justify-center">
-            <div>
-              <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Economia Estimada por Ano</span>
-              <div id="annualSavings" class="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-amber-300 mt-2">
-                R$ 1.820,00
-              </div>
-              <p id="monthlySavings" class="text-sm text-gray-400 mt-1">~ R$ 151,66 de retorno mensal extra</p>
-            </div>
-
-            <div class="pt-4 border-t border-white/10 text-left space-y-2 text-xs text-gray-400">
-              <div class="flex items-center gap-2">
-                <i class="fa-solid fa-check text-green-400"></i> Sem custos de mensalidade
-              </div>
-              <div class="flex items-center gap-2">
-                <i class="fa-solid fa-check text-green-400"></i> Aplicando estratégias publicadas no blog
-              </div>
-            </div>
-
-            <a href="#artigos" class="w-full py-3 rounded-xl bg-orange-gradient text-white font-bold text-sm shadow-orange-glow hover:opacity-90 transition-all text-center">
-              Ver Apps Recomendados
-            </a>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Blog Articles Section -->
-  <section id="artigos" class="py-20 px-4 sm:px-8 max-w-7xl mx-auto">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EconomizeComApp - Dicas Práticas para Economizar com Tecnologia</title>
+    <meta name="description" content="Aprenda a economizar no dia a dia utilizando aplicativos de cashback, cupons, controle financeiro, comparadores de preços e transporte inteligente.">
+    <meta name="keywords" content="economizar, aplicativos de desconto, cashback, cupons de desconto, finanças pessoais, economia doméstica">
     
-    <!-- Section Title & Filters -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-      <div>
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-500">Conteúdo & Guias</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">
-          Últimos Artigos e Análises
-        </h2>
-        <p class="text-gray-400 mt-2 text-base">Aprenda a dominar o seu dinheiro com análises práticas sem jargões.</p>
-      </div>
-
-      <!-- Filter Buttons -->
-      <div class="flex flex-wrap gap-2" id="filterContainer">
-        <button data-filter="all" class="filter-btn active px-4 py-2 rounded-full text-xs font-semibold bg-brand-500 text-white shadow-orange-sm transition-all">Todos</button>
-        <button data-filter="gestao" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-neutral-900 border border-white/10 text-gray-400 hover:text-white transition-all">Gestão</button>
-        <button data-filter="cashback" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-neutral-900 border border-white/10 text-gray-400 hover:text-white transition-all">Cashback</button>
-        <button data-filter="rendimento" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-neutral-900 border border-white/10 text-gray-400 hover:text-white transition-all">Rendimento</button>
-        <button data-filter="milhas" class="filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-neutral-900 border border-white/10 text-gray-400 hover:text-white transition-all">Cartões & Milhas</button>
-      </div>
-    </div>
-
-    <!-- Article Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articlesGrid">
-      
-      <!-- Article Card 1 -->
-      <article class="article-card glass-panel rounded-2xl overflow-hidden flex flex-col group transition-all duration-300" data-category="gestao">
-        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Gestão Financeira</span>
-              <span class="text-xs text-gray-500"><i class="fa-regular fa-clock mr-1"></i> 5 min leitura</span>
-            </div>
-            <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors leading-snug">
-              Os 5 Melhores Aplicativos Para Controle Financeiro em 2026
-            </h3>
-            <p class="text-sm text-gray-400 mt-2 line-clamp-3">
-              Descubra qual app de gestão se adapta melhor à sua rotina. Comparamos recursos automáticos do Mobills, Organizze, Minhas Economias e mais.
-            </p>
-          </div>
-          <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-xs">E</div>
-              <span class="text-xs text-gray-400 font-medium">Equipe Economize</span>
-            </div>
-            <button onclick="openModal(1)" class="text-xs font-bold text-brand-400 hover:text-brand-300 flex items-center gap-1">
-              Ler Artigo <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Article Card 2 -->
-      <article class="article-card glass-panel rounded-2xl overflow-hidden flex flex-col group transition-all duration-300" data-category="cashback">
-        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20">Cashback</span>
-              <span class="text-xs text-gray-500"><i class="fa-regular fa-clock mr-1"></i> 4 min leitura</span>
-            </div>
-            <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors leading-snug">
-              Como Receber Dinheiro de Volta em Todas as Suas Compras
-            </h3>
-            <p class="text-sm text-gray-400 mt-2 line-clamp-3">
-              Entenda como combinar extensões do navegador com apps de cupons para recuperar até 15% das compras online sem complicação.
-            </p>
-          </div>
-          <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-xs">E</div>
-              <span class="text-xs text-gray-400 font-medium">Equipe Economize</span>
-            </div>
-            <button onclick="openModal(2)" class="text-xs font-bold text-brand-400 hover:text-brand-300 flex items-center gap-1">
-              Ler Artigo <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Article Card 3 -->
-      <article class="article-card glass-panel rounded-2xl overflow-hidden flex flex-col group transition-all duration-300" data-category="rendimento">
-        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Rendimento</span>
-              <span class="text-xs text-gray-500"><i class="fa-regular fa-clock mr-1"></i> 6 min leitura</span>
-            </div>
-            <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors leading-snug">
-              Contas Digitais com Rendimento Automático Maior que a Poupança
-            </h3>
-            <p class="text-sm text-gray-400 mt-2 line-clamp-3">
-              Seu dinheiro parado na conta tradicional está perdendo valor. Veja quais carteiras pagam mais de 100% do CDI com liquidez diária.
-            </p>
-          </div>
-          <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-xs">E</div>
-              <span class="text-xs text-gray-400 font-medium">Equipe Economize</span>
-            </div>
-            <button onclick="openModal(3)" class="text-xs font-bold text-brand-400 hover:text-brand-300 flex items-center gap-1">
-              Ler Artigo <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Article Card 4 -->
-      <article class="article-card glass-panel rounded-2xl overflow-hidden flex flex-col group transition-all duration-300" data-category="milhas">
-        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">Cartões & Milhas</span>
-              <span class="text-xs text-gray-500"><i class="fa-regular fa-clock mr-1"></i> 7 min leitura</span>
-            </div>
-            <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors leading-snug">
-              Guia Prático: Cartões Sem Anuidade com Programa de Pontos
-            </h3>
-            <p class="text-sm text-gray-400 mt-2 line-clamp-3">
-              Aprenda a acumular milhas sem pagar taxa de anuidade e transforme gastos cotidianos em passagens aéreas e cashback extra.
-            </p>
-          </div>
-          <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-xs">E</div>
-              <span class="text-xs text-gray-400 font-medium">Equipe Economize</span>
-            </div>
-            <button onclick="openModal(4)" class="text-xs font-bold text-brand-400 hover:text-brand-300 flex items-center gap-1">
-              Ler Artigo <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Article Card 5 -->
-      <article class="article-card glass-panel rounded-2xl overflow-hidden flex flex-col group transition-all duration-300" data-category="gestao">
-        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Gestão Financeira</span>
-              <span class="text-xs text-gray-500"><i class="fa-regular fa-clock mr-1"></i> 4 min leitura</span>
-            </div>
-            <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors leading-snug">
-              A Regra dos 50-30-20 Aplicada com Celular
-            </h3>
-            <p class="text-sm text-gray-400 mt-2 line-clamp-3">
-              Como dividir sua renda entre necessidades, desejos e investimentos usando alertas de aplicativos no smartphone.
-            </p>
-          </div>
-          <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-xs">E</div>
-              <span class="text-xs text-gray-400 font-medium">Equipe Economize</span>
-            </div>
-            <button onclick="openModal(5)" class="text-xs font-bold text-brand-400 hover:text-brand-300 flex items-center gap-1">
-              Ler Artigo <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Article Card 6 -->
-      <article class="article-card glass-panel rounded-2xl overflow-hidden flex flex-col group transition-all duration-300" data-category="cashback">
-        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20">Cashback</span>
-              <span class="text-xs text-gray-500"><i class="fa-regular fa-clock mr-1"></i> 3 min leitura</span>
-            </div>
-            <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors leading-snug">
-              Cupons de Desconto no Supermercado: Apps Que Valem a Pena
-            </h3>
-            <p class="text-sm text-gray-400 mt-2 line-clamp-3">
-              Reduza sua conta de mercado mensal em até 20% enviando a nota fiscal via celular. Conheça as melhores opções ativas.
-            </p>
-          </div>
-          <div class="pt-4 border-t border-white/10 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-xs">E</div>
-              <span class="text-xs text-gray-400 font-medium">Equipe Economize</span>
-            </div>
-            <button onclick="openModal(6)" class="text-xs font-bold text-brand-400 hover:text-brand-300 flex items-center gap-1">
-              Ler Artigo <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-          </div>
-        </div>
-      </article>
-
-    </div>
-
-  </section>
-
-  <!-- Top Recommended Apps Showcase -->
-  <section id="apps" class="py-20 px-4 sm:px-8 bg-neutral-950/70 border-t border-white/5 relative">
-    <div class="max-w-7xl mx-auto">
-      
-      <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="text-xs font-bold uppercase tracking-widest text-brand-500">Destaques Recomendados</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">
-          Melhores Aplicativos Selecionados
-        </h2>
-        <p class="text-gray-400 mt-3">Testados e verificados por nossa equipe com foco em segurança, economia real e usabilidade.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <!-- App Card 1 -->
-        <div class="glass-panel p-6 rounded-3xl space-y-5 border border-white/10 relative">
-          <div class="flex items-center justify-between">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center text-white text-xl font-black">
-              M
-            </div>
-            <div class="flex items-center gap-1 text-amber-400 text-xs font-bold bg-amber-400/10 px-2.5 py-1 rounded-full">
-              <i class="fa-solid fa-star"></i> 4.9
-            </div>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-white">Mobills - Controle de Gastos</h3>
-            <p class="text-xs text-brand-400 font-semibold mt-0.5">Gestão Financeira Completa</p>
-            <p class="text-sm text-gray-400 mt-2">Sincronização de contas bancárias, relatórios visuais e planejamento de orçamento mensal.</p>
-          </div>
-          <div class="space-y-2 pt-2 border-t border-white/10 text-xs text-gray-300">
-            <div class="flex justify-between"><span>Plataformas:</span><span class="text-white font-medium">iOS & Android</span></div>
-            <div class="flex justify-between"><span>Custo:</span><span class="text-emerald-400 font-medium">Gratuito (com Pro)</span></div>
-          </div>
-          <button onclick="openModal(1)" class="w-full py-2.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-semibold text-xs transition-colors">
-            Ver Análise Completa
-          </button>
-        </div>
-
-        <!-- App Card 2 -->
-        <div class="glass-panel p-6 rounded-3xl space-y-5 border border-brand-500/30 relative">
-          <div class="absolute -top-3 right-6 bg-orange-gradient text-white text-[10px] uppercase font-extrabold tracking-wider px-3 py-0.5 rounded-full shadow-orange-sm">
-            Mais Usado
-          </div>
-          <div class="flex items-center justify-between">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-red-500 to-orange-500 flex items-center justify-center text-white text-xl font-black">
-              M
-            </div>
-            <div class="flex items-center gap-1 text-amber-400 text-xs font-bold bg-amber-400/10 px-2.5 py-1 rounded-full">
-              <i class="fa-solid fa-star"></i> 4.8
-            </div>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-white">Méliuz - Cashback & Cupons</h3>
-            <p class="text-xs text-brand-400 font-semibold mt-0.5">Retorno de Dinheiro</p>
-            <p class="text-sm text-gray-400 mt-2">Ganhe dinheiro de volta comprando em centenas de lojas parceiras e supermercados.</p>
-          </div>
-          <div class="space-y-2 pt-2 border-t border-white/10 text-xs text-gray-300">
-            <div class="flex justify-between"><span>Plataformas:</span><span class="text-white font-medium">iOS, Android, Web</span></div>
-            <div class="flex justify-between"><span>Custo:</span><span class="text-emerald-400 font-medium">100% Gratuito</span></div>
-          </div>
-          <button onclick="openModal(2)" class="w-full py-2.5 rounded-xl bg-orange-gradient text-white font-semibold text-xs shadow-orange-sm hover:opacity-90 transition-all">
-            Ver Análise Completa
-          </button>
-        </div>
-
-        <!-- App Card 3 -->
-        <div class="glass-panel p-6 rounded-3xl space-y-5 border border-white/10 relative">
-          <div class="flex items-center justify-between">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white text-xl font-black">
-              S
-            </div>
-            <div class="flex items-center gap-1 text-amber-400 text-xs font-bold bg-amber-400/10 px-2.5 py-1 rounded-full">
-              <i class="fa-solid fa-star"></i> 4.9
-            </div>
-          </div>
-          <div>
-            <h3 class="text-lg font-bold text-white">Sofisa Direto - Rendimento</h3>
-            <p class="text-xs text-brand-400 font-semibold mt-0.5">Investimento Seguro</p>
-            <p class="text-sm text-gray-400 mt-2">CDB com liquidez diária rendendo 110% do CDI garantido pelo FGC.</p>
-          </div>
-          <div class="space-y-2 pt-2 border-t border-white/10 text-xs text-gray-300">
-            <div class="flex justify-between"><span>Plataformas:</span><span class="text-white font-medium">iOS & Android</span></div>
-            <div class="flex justify-between"><span>Aplicação Mínima:</span><span class="text-emerald-400 font-medium">A partir de R$ 1,00</span></div>
-          </div>
-          <button onclick="openModal(3)" class="w-full py-2.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-semibold text-xs transition-colors">
-            Ver Análise Completa
-          </button>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- FAQ Accordion Section -->
-  <section id="faq" class="py-20 px-4 sm:px-8 max-w-4xl mx-auto">
-    <div class="text-center mb-12">
-      <span class="text-xs font-bold uppercase tracking-widest text-brand-500">Tire Suas Dúvidas</span>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">
-        Perguntas Frequentes
-      </h2>
-    </div>
-
-    <div class="space-y-4">
-      
-      <div class="glass-panel rounded-2xl border border-white/10 overflow-hidden">
-        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-brand-400 transition-colors">
-          <span>Os aplicativos indicados são seguros?</span>
-          <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300"></i>
-        </button>
-        <div class="faq-content hidden px-5 pb-5 text-sm text-gray-400 leading-relaxed">
-          Sim! Nós analisamos apenas aplicativos devidamente regulamentados pelo Banco Central do Brasil ou empresas estabelecidas e com boa reputação no Reclame Aqui. Sempre recomendamos que ative a autenticação em duas etapas (2FA) em suas contas.
-        </div>
-      </div>
-
-      <div class="glass-panel rounded-2xl border border-white/10 overflow-hidden">
-        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-brand-400 transition-colors">
-          <span>É preciso pagar para usar o EconomizeComApp?</span>
-          <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300"></i>
-        </button>
-        <div class="faq-content hidden px-5 pb-5 text-sm text-gray-400 leading-relaxed">
-          Não! Todo o conteúdo do nosso blog, guias, tutoriais e calculadoras são 100% gratuitos para os leitores.
-        </div>
-      </div>
-
-      <div class="glass-panel rounded-2xl border border-white/10 overflow-hidden">
-        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-brand-400 transition-colors">
-          <span>Quanto posso economizar de fato usando esses apps?</span>
-          <i class="fa-solid fa-chevron-down text-sm transition-transform duration-300"></i>
-        </button>
-        <div class="faq-content hidden px-5 pb-5 text-sm text-gray-400 leading-relaxed">
-          A economia varia conforme os seus hábitos de consumo. Em média, leitores que aplicam cashback, contas com rendimento automático e corte de tarifas conseguem economizar entre R$ 100 e R$ 450 por mês.
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Modal Reader -->
-  <div id="articleModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden transition-opacity duration-300">
-    <div class="glass-panel bg-neutral-900 border border-white/10 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative">
-      
-      <!-- Close Button -->
-      <button onclick="closeModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-neutral-800 text-gray-400 hover:text-white flex items-center justify-center transition-colors">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <div id="modalContent" class="space-y-6">
-        <!-- Dynamic content injected via JavaScript -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="border-t border-white/10 bg-black/80 py-12 px-4 sm:px-8 text-xs text-gray-500">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-lg bg-orange-gradient flex items-center justify-center text-white font-bold">
-          <i class="fa-solid fa-wallet text-sm"></i>
-        </div>
-        <span class="text-sm font-bold text-white">Economize.comApp</span>
-      </div>
-
-      <p class="text-center md:text-left">
-        © 2026 EconomizeComApp. Todos os direitos reservados. Isenção de responsabilidade: Não fornecemos recomendações de investimento individuais.
-      </p>
-
-    </div>
-  </footer>
-
-  <script>
-    // --- Comprehensive Data Source for Long-Form Articles Modal (900 - 1300 words per article) ---
-    const articlesData = {
-      1: {
-        title: "Os 5 Melhores Aplicativos Para Controle Financeiro em 2026",
-        category: "Gestão Financeira",
-        readTime: "9 min",
-        body: `
-          <div class="space-y-6 text-gray-300 text-sm leading-relaxed">
-            <p class="text-base text-gray-200 font-medium">
-              Gerenciar o orçamento pessoal no caderno ou em planilhas manuais complexas tornou-se um método ultrapassado e propenso a erros. Em 2026, a consolidação da tecnologia de Open Finance no Brasil permitiu que os aplicativos de controle financeiro se transformassem em verdadeiros assistentes virtuais inteligentes. Eles se conectam diretamente com suas contas bancárias e cartões de crédito, categorizando gastos automaticamente e oferecendo diagnósticos em tempo real sobre a sua saúde financeira.
-            </p>
-
-            <div class="p-4 rounded-2xl bg-brand-500/10 border border-brand-500/20 text-brand-300">
-              <strong class="font-bold text-white flex items-center gap-2 mb-1">
-                <i class="fa-solid fa-lightbulb text-brand-400"></i> Por que usar um app automatizado?
-              </strong>
-              Pesquisas indicam que pessoas que monitoram seus gastos diariamente por dispositivos móveis conseguem reduzir desperdícios e compras por impulso em até 23% nos primeiros três meses de utilização.
-            </div>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">1. Mobills: O Mais Completo e Visual</h3>
-            <p>
-              O <strong>Mobills</strong> consolida-se como a ferramenta mais intuitiva e robusta do mercado brasileiro. Seu grande diferencial está na capacidade de gerar relatórios visuais extremamente detalhados por meio de gráficos interativos e dashboards parametrizáveis. 
-            </p>
-            <ul class="list-disc pl-5 space-y-1 text-gray-400">
-              <li><strong>Pontos Fortes:</strong> Sincronização automática via Open Finance, planejamento de metas financeiras por categoria, notificações personalizadas de vencimento de faturas e orçamento mensal com alertas de teto de gastos.</li>
-              <li><strong>Para quem é ideal:</strong> Pessoas que gostam de analisar relatórios visuais refinados, gerenciar múltiplos cartões e manter metas rígidas de economia.</li>
-              <li><strong>Plataformas:</strong> Android, iOS e Web. Possui plano gratuito básico e assinatura Premium.</li>
-            </ul>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">2. Organizze: Simplicidade e Interface Clean</h3>
-            <p>
-              Se você prefere uma experiência sem poluição visual ou excesso de botões, o <strong>Organizze</strong> é a escolha impecável. Focado no essencial, ele permite lançamentos rápidos de receitas e despesas, categorização por cores e navegação fluida entre múltiplos meses.
-            </p>
-            <ul class="list-disc pl-5 space-y-1 text-gray-400">
-              <li><strong>Pontos Fortes:</strong> Interface minimalista, funcionamento offline eficiente, relatórios simples de ler e facilidade para consolidar faturas de cartão.</li>
-              <li><strong>Para quem é ideal:</strong> Quem está começando na gestão financeira e quer evitar curva de aprendizado complexa.</li>
-              <li><strong>Plataformas:</strong> Android e iOS.</li>
-            </ul>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">3. Minhas Economias: 100% Gratuito e Sem Pegadinhas</h3>
-            <p>
-              Em um mercado saturado de modelos freemium com recursos limitados, o <strong>Minhas Economias</strong> destaca-se por oferecer uma suíte de ferramentas de gestão completamente gratuita, sem cobrança de assinaturas mensais.
-            </p>
-            <ul class="list-disc pl-5 space-y-1 text-gray-400">
-              <li><strong>Pontos Fortes:</strong> Totalmente gratuito, sincronização com principais bancos brasileiros, gerenciamento de contas correntes, investimentos e cartões em um só lugar.</li>
-              <li><strong>Para quem é ideal:</strong> Quem não deseja gastar nada com assinaturas mensais e quer um controle financeiro completo e seguro.</li>
-              <li><strong>Plataformas:</strong> Android, iOS e Web.</li>
-            </ul>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">4. Wisecash: Minimalismo e Foco na Privacidade Local</h3>
-            <p>
-              O <strong>Wisecash</strong> é uma joia oculta para quem prioriza a privacidade total e deseja manter seus dados financeiros estritamente armazenados no próprio dispositivo, sem depender obrigatoriamente de servidores em nuvem ou conexões automáticas de terceiros.
-            </p>
-            <ul class="list-disc pl-5 space-y-1 text-gray-400">
-              <li><strong>Pontos Fortes:</strong> Lançamentos manuais velozes, resumo gráfico mensal claro, gerador de lembretes de contas a pagar e ausência de propagandas invasivas.</li>
-              <li><strong>Para quem é ideal:</strong> Usuários pragmáticos que preferem digitação manual rápida para ter controle estrito de cada centavo sem vincular senhas bancárias.</li>
-              <li><strong>Plataformas:</strong> Android.</li>
-            </ul>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">5. Wallet (by BudgetBakers): Multimoedas e Sincronização Global</h3>
-            <p>
-              Para quem viaja com frequência, realiza transações internacionais em dólar/euro ou possui investimentos no exterior, o <strong>Wallet</strong> da BudgetBakers oferece suporte multimoeda nativo com conversão automática de taxas de câmbio em tempo real.
-            </p>
-            <ul class="list-disc pl-5 space-y-1 text-gray-400">
-              <li><strong>Pontos Fortes:</strong> Suporte nativo a diversas moedas globais, sincronização bancária internacional com centenas de instituições, compartilhamento de estrutura orçamentária com familiares ou parceiros e previsão de fluxo de caixa futuro.</li>
-              <li><strong>Para quem é ideal:</strong> Nômades digitais, investidores globais e casais que dividem orçamento doméstico.</li>
-              <li><strong>Plataformas:</strong> Android, iOS e Web.</li>
-            </ul>
-
-            <div class="mt-6 p-5 rounded-2xl bg-neutral-800/80 border border-white/10 space-y-3">
-              <h4 class="text-base font-bold text-white">Quadro Comparativo Rápido</h4>
-              <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr class="border-b border-white/10 text-brand-400">
-                      <th class="py-2 px-3">Aplicativo</th>
-                      <th class="py-2 px-3">Preço</th>
-                      <th class="py-2 px-3">Open Finance</th>
-                      <th class="py-2 px-3">Destaque Chave</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-white/5 text-gray-300">
-                    <tr><td class="py-2 px-3 font-semibold text-white">Mobills</td><td class="py-2 px-3">Freemium</td><td class="py-2 px-3">Sim</td><td class="py-2 px-3">Relatórios & Metas</td></tr>
-                    <tr><td class="py-2 px-3 font-semibold text-white">Organizze</td><td class="py-2 px-3">Freemium</td><td class="py-2 px-3">Sim</td><td class="py-2 px-3">Simplicidade Visual</td></tr>
-                    <tr><td class="py-2 px-3 font-semibold text-white">Minhas Economias</td><td class="py-2 px-3">100% Grátis</td><td class="py-2 px-3">Sim</td><td class="py-2 px-3">Sem Assinaturas</td></tr>
-                    <tr><td class="py-2 px-3 font-semibold text-white">Wisecash</td><td class="py-2 px-3">Grátis</td><td class="py-2 px-3">Não</td><td class="py-2 px-3">Privacidade Local</td></tr>
-                    <tr><td class="py-2 px-3 font-semibold text-white">Wallet</td><td class="py-2 px-3">Freemium</td><td class="py-2 px-3">Sim</td><td class="py-2 px-3">Multimoedas Global</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <h3 class="text-xl font-bold text-white pt-4">Como Escolher e Implementar na Sua Rotina</h3>
-            <p>
-              O segredo para fazer um aplicativo de finanças funcionar não está no preço ou na quantidade de funções tecnológicas, mas sim na sua constância. Escolha o aplicativo que exija o menor atrito no seu dia a dia. Comece cadastrando apenas suas despesas fixas (aluguel, internet, luz, faculdade) e defina um dia fixo na semana — como o domingo à noite — para revisar as despesas variáveis e ajustar seus limites.
-            </p>
-          </div>
-        `
-      },
-      2: {
-        title: "Como Receber Dinheiro de Volta em Todas as Suas Compras",
-        category: "Cashback",
-        readTime: "8 min",
-        body: `
-          <div class="space-y-6 text-gray-300 text-sm leading-relaxed">
-            <p class="text-base text-gray-200 font-medium">
-              O conceito de cashback deixou de ser apenas um brinde promocional esporádico para se converter em pilar essencial de economia inteligente. A ideia é simples e transparente: ao realizar compras em estabelecimentos parceiros por meio de links rastreados ou carteiras digitais, uma fatia do valor gasto retorna diretamente em dinheiro para a sua conta bancária.
-            </p>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">O Ecossistema Moderno do Cashback no Brasil</h3>
-            <p>
-              As redes varejistas e plataformas de e-commerce destinam grandes verbas de marketing para a aquisição de clientes. Em vez de investirem integralmente em anúncios tradicionais, essas empresas dividem essa comissão de venda com os portais de cashback, que repassam a maior parte ao consumidor final.
-            </p>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">As Melhores Plataformas e Aplicativos Ativos</h3>
-            
-            <div class="space-y-4">
-              <div class="p-4 rounded-xl bg-neutral-900 border border-white/5">
-                <h4 class="text-white font-bold text-base">1. Méliuz: O Líder do Setor</h4>
-                <p class="text-gray-400 mt-1">
-                  Com parcerias em milhares de e-commerces (incluindo grandes marcas de eletrônicos, moda e viagens), o Méliuz permite acumular saldo resgatável via PIX direto para qualquer banco após atingir o saldo mínimo estipulado. Possui extensão de navegador para computador que ativa descontos em um clique.
-                </p>
-              </div>
-
-              <div class="p-4 rounded-xl bg-neutral-900 border border-white/5">
-                <h4 class="text-white font-bold text-base">2. Cuponeria e Buscapé</h4>
-                <p class="text-gray-400 mt-1">
-                  Integrando comparadores de preço em tempo real com cupons testados automaticamente, essas plataformas garantem que você não só receba porcentagem de retorno, mas também pague o menor valor histórico de um produto.
-                </p>
-              </div>
-
-              <div class="p-4 rounded-xl bg-neutral-900 border border-white/5">
-                <h4 class="text-white font-bold text-base">3. Cashback de Notas Fiscais Fisicas (Mangos & Dinheiro na Nota)</h4>
-                <p class="text-gray-400 mt-1">
-                  Mesmo em compras do dia a dia presenciais no supermercado ou farmácia, escanear o QR Code impresso no cupom fiscal permite acumular centavos e reais que, somados ao longo do ano, pagam faturas de água e luz.
-                </p>
-              </div>
-            </div>
-
-            <h3 class="text-xl font-bold text-white pt-4 border-b border-white/10 pb-2">Estratégia do "Empilhamento de Benefícios" (Stacking)</h3>
-            <p>
-              A verdadeira mágica da economia acontece quando você combina múltiplos canais de ganho na mesma transação. Veja a fórmula de empilhamento avançado:
-            </p>
-
-            <ol class="list-decimal pl-5 space-y-2 text-gray-300">
-              <li><strong>Camada 1:</strong> Inicie a navegação pelo aplicativo ou extensão do Méliuz ou Cuponeria (Ganha de 3% a 10% de cashback).</li>
-              <li><strong>Camada 2:</strong> Aplique um cupom de desconto promocional válido no carrinho da loja.</li>
-              <li><strong>Camada 3:</strong> Efetue o pagamento utilizando um cartão de crédito que forneça pontos por dólar gasto ou 1% de cashback direto na fatura.</li>
-            </ol>
-
-            <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 mt-4">
-              <strong class="text-white block font-bold mb-1"><i class="fa-solid fa-calculator mr-1"></i> Exemplo Prático de Economia:</strong>
-              Compra de uma geladeira de R$ 3.000,00 na promoção de 10% de cashback do app + cupom de R$ 150 + 1% de retorno do cartão = <strong>R$ 480,00 mantidos no seu bolso!</strong>
-            </div>
-
-            <h3 class="text-xl font-bold text-white pt-4">Cuidados Cruciais ao Usar Apps de Cashback</h3>
-            <p>
-              Certifique-se de esvaziar o carrinho de compras antes de ativar a sessão pelo link de cashback e desative bloqueadores de anúncios (AdBlock) durante o processo para não interromper os cookies de rastreamento da comissão.
-            </p>
-          </div>
-        `
-      },
-      3: {
-        title: "Contas Digitais com Rendimento Automático Maior que a Poupança",
-        category: "Rendimento",
-        readTime: "10 min",
-        body: `
-          <div class="space-y-6 text-gray-300 text-sm leading-relaxed">
-            <p class="text-base text-gray-200 font-medium">
-              Manter dinheiro acumulado na conta corrente sem qualquer rendimento ou alocado na caderneta de poupança tradicional significa perder poder de compra real para a inflação todos os meses. Com as taxas de juros básicas brasileiras em patamares atrativos, as contas digitais com rendimento diário e liquidez imediata tornaram-se o destino definitivo para a reserva de emergência.
-            </p>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">Entendendo a Diferença: Poupança vs. 100% do CDI</h3>
-            <p>
-              A caderneta de poupança possui uma regra de rendimento engessada e credita juros apenas na data de aniversário mensal do depósito. Se você retirar o dinheiro no 29º dia, perde todo o rendimento daquele mês. Já as contas rendimentos atreladas ao CDI (Certificado de Depósito Interbancário) possuem apuração diária e rentabilidade superior.
-            </p>
-
-            <div class="p-5 rounded-2xl bg-neutral-900 border border-white/10 space-y-3">
-              <h4 class="text-base font-bold text-brand-400">Comparativo das Melhores Opções no Brasil</h4>
-              
-              <div class="space-y-3">
-                <div class="pb-3 border-b border-white/5">
-                  <span class="text-white font-bold">1. Sofisa Direto (CDB Liquidez Diária)</span>
-                  <p class="text-xs text-gray-400 mt-1">Rendimento de <strong>110% do CDI</strong> desde o primeiro dia. Conta com a proteção total do Fundo Garantidor de Crédito (FGC) até R$ 250.000 por CPF.</p>
-                </div>
-
-                <div class="pb-3 border-b border-white/5">
-                  <span class="text-white font-bold">2. Nubank (Caixinhas de Rendimento)</span>
-                  <p class="text-xs text-gray-400 mt-1">Rendimento de <strong>100% do CDI</strong> nas Caixinhas Turbo/RDT com resgate imediato e separação por objetivos de curto prazo.</p>
-                </div>
-
-                <div>
-                  <span class="text-white font-bold">3. PicPay & Mercado Pago</span>
-                  <p class="text-xs text-gray-400 mt-1">Rendimento de <strong>102% a 105% do CDI</strong> para saldos mantidos em carteira com facilidade de pagamentos via PIX a qualquer hora do dia ou da noite.</p>
-                </div>
-              </div>
-            </div>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">Tributação: Imposto de Renda e IOF</h3>
-            <p>
-              A rentabilidade dos títulos atrelados ao CDI sofre incidência da Tabela Regressiva do Imposto de Renda (incidindo apenas sobre os lucros, nunca sobre o seu capital principal investido):
-            </p>
-
-            <ul class="list-disc pl-5 space-y-1 text-gray-400">
-              <li>Até 180 dias: Alíquota de 22,5% sobre o rendimento.</li>
-              <li>De 181 a 360 dias: Alíquota de 20,0%.</li>
-              <li>De 361 a 720 dias: Alíquota de 17,5%.</li>
-              <li>Acima de 720 dias: Alíquota mínima de 15,0%.</li>
-            </ul>
-
-            <p class="mt-2">
-              Além disso, para saques realizados nos primeiros 30 dias de aplicação, há incidência de IOF (Imposto sobre Operações Financeiras), que reduz gradativamente até zerar no 30º dia. Mesmo com os impostos descontados automaticamente na fonte, o resultado líquido final supera a poupança em quase todas as simulações históricas.
-            </p>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">Segurança: O Papel do FGC</h3>
-            <p>
-              O Fundo Garantidor de Créditos assegura depósitos em CDBs até o limite de R$ 250.000 por instituição financeira e R$ 1.000.000 no agregado por CPF. Escolher contas e bancos digitais cobertos pelo FGC traz a mesma garantia institucional que os maiores e mais tradicionais bancos do país oferecem.
-            </p>
-          </div>
-        `
-      },
-      4: {
-        title: "Guia Prático: Cartões Sem Anuidade com Programa de Pontos",
-        category: "Cartões & Milhas",
-        readTime: "11 min",
-        body: `
-          <div class="space-y-6 text-gray-300 text-sm leading-relaxed">
-            <p class="text-base text-gray-200 font-medium">
-              Acumular pontos e milhas aéreas deixou de ser uma exclusividade reservada a executivos de alta renda que gastam dezenas de milhares de reais por mês. O surgimento de fintechs competitivas e cartões sem taxa de anuidade democratizou o acesso a programas de fidelidade, permitindo que compras rotineiras de supermercado, farmácia e combustível se convertam em viagens e passagens baratas.
-            </p>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">Os Melhores Cartões Isentos de Anuidade</h3>
-
-            <div class="space-y-4">
-              <div class="p-4 rounded-xl bg-neutral-900 border border-white/5">
-                <h4 class="text-white font-bold text-base">1. Cartão C6 Bank</h4>
-                <p class="text-gray-400 mt-1">
-                  Pontua diretamente no programa Átomos. Os pontos acumulados não expiram e podem ser trocados por cashback na fatura ou transferidos para programas de companhias aéreas parceiras.
-                </p>
-              </div>
-
-              <div class="p-4 rounded-xl bg-neutral-900 border border-white/5">
-                <h4 class="text-white font-bold text-base">2. Cartão Inter Gold / Platinum</h4>
-                <p class="text-gray-400 mt-1">
-                  Oferece acesso ao programa Inter Loop com acúmulo direto e sem anuidade contratual, podendo converter pontos em cashback ou transferir para o programa TudoAzul.
-                </p>
-              </div>
-
-              <div class="p-4 rounded-xl bg-neutral-900 border border-white/5">
-                <h4 class="text-white font-bold text-base">3. Cartão Itaú Click / Pão de Açúcar Mastercard</h4>
-                <p class="text-gray-400 mt-1">
-                  Opções acessíveis de bancos consolidados com isenção por média de gastos ou regras de relacionamento digital, pontuando nos ecossistemas Livelo ou Esfera.
-                </p>
-              </div>
-            </div>
-
-            <h3 class="text-xl font-bold text-white pt-4 border-b border-white/10 pb-2">O Segredo das Transferências Bonificadas</h3>
-            <p>
-              O maior erro praticado por iniciantes é transferir pontos da conta do cartão diretamente para o programa da companhia aérea de forma simples (1 ponto = 1 milha). O segredo para dobrar seu saldo reside nas <strong>Promoções de Transferência Bonificada</strong> de 80% a 100%.
-            </p>
-
-            <div class="p-4 rounded-2xl bg-brand-500/10 border border-brand-500/20 text-brand-300">
-              <strong class="font-bold text-white block mb-1">Como Funciona o Bônus:</strong>
-              Se você acumulou 20.000 pontos no seu cartão e aguarda uma promoção bonificada de 100% para o programa Smiles ou TudoAzul, seus 20.000 pontos transformam-se instantaneamente em <strong>40.000 milhas ativas</strong>, suficientes para trechos nacionais completos!
-            </div>
-
-            <h3 class="text-xl font-bold text-white pt-4">Estratégia para Acelerar seus Ganhos sem Aumentar Gastos</h3>
-            <p>
-              Para turbinar o acúmulo de milhas sem comprometer seu orçamento doméstico, passe a centralizar todas as despesas variáveis recorrentes (como assinaturas de streaming, aplicativos de transporte e boletos de contas básicas elegíveis) no cartão de crédito escolhido.
-            </p>
-          </div>
-        `
-      },
-      5: {
-        title: "A Regra dos 50-30-20 Aplicada com Celular",
-        category: "Gestão Financeira",
-        readTime: "8 min",
-        body: `
-          <div class="space-y-6 text-gray-300 text-sm leading-relaxed">
-            <p class="text-base text-gray-200 font-medium">
-              A regra 50-30-20 é uma das metodologias de planejamento financeiro mais populares do mundo pela sua flexibilidade e simplicidade. Ela divide o seu rendimento líquido mensal em três grandes blocos de despesas, criando um teto de gastos equilibrado que evita o endividamento e garante o seu futuro sem sacrificar o presente.
-            </p>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">Como Funciona a Divisão Percentual</h3>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
-              <div class="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-center">
-                <span class="text-2xl font-black text-blue-400">50%</span>
-                <h4 class="text-white font-bold mt-1 text-sm">Necessidades Fixas</h4>
-                <p class="text-xs text-gray-400 mt-1">Aluguel, moradia, supermercado, transporte, luz, água e saúde.</p>
-              </div>
-
-              <div class="p-4 rounded-2xl bg-brand-500/10 border border-brand-500/20 text-center">
-                <span class="text-2xl font-black text-brand-400">30%</span>
-                <h4 class="text-white font-bold mt-1 text-sm">Desejos & Lazer</h4>
-                <p class="text-xs text-gray-400 mt-1">Jantares fora, viagens, hobbies, compras pessoais e serviços de streaming.</p>
-              </div>
-
-              <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center">
-                <span class="text-2xl font-black text-emerald-400">20%</span>
-                <h4 class="text-white font-bold mt-1 text-sm">Investimentos</h4>
-                <p class="text-xs text-gray-400 mt-1">Construção da reserva de emergência, aposentadoria e metas de longo prazo.</p>
-              </div>
-            </div>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">Automatizando a Regra no Celular</h3>
-            <p>
-              O maior desafio das pessoas não é entender a matemática dos 50-30-20, mas sim manter a disciplina no meio do mês quando os convites sociais e promoções surgem. É aí que entra a automação pelo smartphone:
-            </p>
-
-            <ul class="list-disc pl-5 space-y-2 text-gray-300">
-              <li><strong>Passo 1 (Separação do Investimento):</strong> Configure uma transferência automática do equivalente a 20% do seu salário assim que ele cair na conta principal com destino a um CDB de liquidez diária ou Caixinha.</li>
-              <li><strong>Passo 2 (Alertas de Categoria no App):</strong> Defina dentro do seu app de finanças (Mobills ou Organizze) um orçamento teto exato para os 30% de desejos. Ao atingir 80% do limite, receba uma notificação push no celular.</li>
-              <li><strong>Passo 3 (Cartão do Lazer):</strong> Dica de ouro: utilize uma conta digital secundária específica carregada apenas com os 30% do orçamento do mês para gastos de lazer. Quando o saldo zerar, os passeios do mês encerraram de forma automática.</li>
-            </ul>
-          </div>
-        `
-      },
-      6: {
-        title: "Cupons de Desconto no Supermercado: Apps Que Valem a Pena",
-        category: "Cashback",
-        readTime: "7 min",
-        body: `
-          <div class="space-y-6 text-gray-300 text-sm leading-relaxed">
-            <p class="text-base text-gray-200 font-medium">
-              As compras de supermercado e produtos de higiene representam uma das maiores fatias do orçamento mensal de qualquer família brasileira. Felizmente, novas tecnologias de leitura OCR de notas fiscais permitem resgatar parte desse dinheiro gasto através do escaneamento do QR Code com a câmera do celular.
-            </p>
-
-            <h3 class="text-xl font-bold text-white pt-2 border-b border-white/10 pb-2">Aplicativos de Leitura de Cupom Fiscal Mais Rentáveis</h3>
-            
-            <p>
-              Muitas indústrias de bens de consumo de grande giro (como P&G, Unilever, Nestlé e Ambev) lançam campanhas diretas de reembolso e cupons promocionais. Ao utilizar os apps certos, você contorna os intermediários e recebe o benefício diretamente na sua chave PIX:
-            </p>
-
-            <ul class="list-disc pl-5 space-y-2 text-gray-300">
-              <li><strong>Mangos:</strong> Oferece ofertas em itens específicos da lista de compras da sua região. Ao comprar o produto e enviar a foto da nota, o valor informado na oferta é creditado na sua conta.</li>
-              <li><strong>Méliuz Nota Fiscal:</strong> Aba interna no aplicativo do Méliuz que paga valores fixos de cashback por notas fiscais enviadas de qualquer supermercado parceiro.</li>
-              <li><strong>Programas Próprios de Redes de Supermercado:</strong> Apps de grandes redes locais (como Meu Carrefour, Pão de Açúcar Mais e Clube Hirota) oferecem descontos exclusivos direto no caixa ao digitar o CPF.</li>
-            </ul>
-
-            <h3 class="text-xl font-bold text-white pt-4">Rotina Recomendada para Máxima Economia</h3>
-            <p>
-              Antes de ir às compras, abra o aplicativo Mangos ou do seu supermercado habitual para ativar previamente os cupons de desconto dos itens que você já pretendia comprar. Após o pagamento no caixa, guarde o cupom impresso e dedique 2 minutos para escanear o QR Code antes de descartá-lo. Essa rotina simples pode render uma economia acumulada relevante ao longo dos meses!
-            </p>
-          </div>
-        `
-      }
-    };
-
-    // Modal Control Functions
-    function openModal(id) {
-      const data = articlesData[id] || articlesData[1];
-      const modal = document.getElementById('articleModal');
-      const content = document.getElementById('modalContent');
-
-      content.innerHTML = `
-        <div class="flex items-center gap-2 text-xs text-brand-400 font-semibold uppercase tracking-wider">
-          <span>${data.category}</span> • <span>${data.readTime} de leitura</span>
-        </div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">${data.title}</h2>
-        <div class="pt-4 border-t border-white/10">
-          ${data.body}
-        </div>
-        <div class="pt-6 flex justify-end">
-          <button onclick="closeModal()" class="px-5 py-2.5 rounded-full bg-orange-gradient text-white font-bold text-xs shadow-orange-sm hover:opacity-90 transition-all">
-            Fechar Leitura
-          </button>
-        </div>
-      `;
-
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('articleModal');
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
-    }
-
-    // Modal click backdrop close
-    document.getElementById('articleModal')?.addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
-    });
-
-    // --- STREAMING_CHUNK:Interactive Calculator Script Logic... ---
-    const spendRange = document.getElementById('spendRange');
-    const spendValueText = document.getElementById('spendValueText');
-    const chkCashback = document.getElementById('chkCashback');
-    const chkRendimento = document.getElementById('chkRendimento');
-    const chkGestao = document.getElementById('chkGestao');
-    const annualSavingsText = document.getElementById('annualSavings');
-    const monthlySavingsText = document.getElementById('monthlySavings');
-
-    function calculateSavings() {
-      const monthlySpend = parseFloat(spendRange.value);
-      spendValueText.textContent = `R$ ${monthlySpend.toLocaleString('pt-BR')}`;
-
-      let annualCalculated = 0;
-
-      // 3% Cashback average
-      if (chkCashback.checked) {
-        annualCalculated += (monthlySpend * 0.03) * 12;
-      }
-
-      // 100% CDI Yield on average balance
-      if (chkRendimento.checked) {
-        annualCalculated += (monthlySpend * 0.4) * 0.105; // Rendimento anual estimado
-      }
-
-      // Savings from managing subcriptions
-      if (chkGestao.checked) {
-        annualCalculated += 650; // Média anual economizada cortando tarifas
-      }
-
-      const monthlyCalculated = annualCalculated / 12;
-
-      annualSavingsText.textContent = `R$ ${Math.round(annualCalculated).toLocaleString('pt-BR')},00`;
-      monthlySavingsText.textContent = `~ R$ ${Math.round(monthlyCalculated).toLocaleString('pt-BR')},00 de retorno mensal extra`;
-    }
-
-    spendRange?.addEventListener('input', calculateSavings);
-    chkCashback?.addEventListener('change', calculateSavings);
-    chkRendimento?.addEventListener('change', calculateSavings);
-    chkGestao?.addEventListener('change', calculateSavings);
-
-    // Initial calculation call
-    calculateSavings();
-
-    // --- STREAMING_CHUNK:Category Filter Script Logic... ---
-    const filterButtons = document.querySelectorAll('#filterContainer .filter-btn');
-    const articleCards = document.querySelectorAll('#articlesGrid .article-card');
-
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Toggle Active styles
-        filterButtons.forEach(b => {
-          b.classList.remove('bg-brand-500', 'text-white', 'shadow-orange-sm');
-          b.classList.add('bg-neutral-900', 'text-gray-400');
-        });
-        btn.classList.remove('bg-neutral-900', 'text-gray-400');
-        btn.classList.add('bg-brand-500', 'text-white', 'shadow-orange-sm');
-
-        const filter = btn.getAttribute('data-filter');
-
-        articleCards.forEach(card => {
-          if (filter === 'all' || card.getAttribute('data-category') === filter) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-
-    // --- STREAMING_CHUNK:FAQ Accordion Toggle Logic... ---
-    document.querySelectorAll('.faq-toggle').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const content = btn.nextElementSibling;
-        const icon = btn.querySelector('i');
-        const isOpen = !content.classList.contains('hidden');
-
-        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
-        document.querySelectorAll('.faq-toggle i').forEach(i => i.classList.remove('rotate-180'));
-
-        if (!isOpen) {
-          content.classList.remove('hidden');
-          icon.classList.add('rotate-180');
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            800: '#1e3a8a',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
         }
-      });
-    });
+    </script>
+    <!-- Google Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    // --- Mobile Menu Toggle ---
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenuBtn?.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      mobileMenu.classList.toggle('flex');
-    });
-  </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%);
+        }
+        .blue-glow {
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.15), 0 8px 10px -6px rgba(37, 99, 235, 0.1);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+        }
+        /* Custom Reading Progress Bar */
+        #progress-bar {
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Reading Progress Bar -->
+    <div id="progress-container" class="fixed top-0 left-0 w-full h-1 bg-slate-200 z-50 hidden">
+        <div id="progress-bar" class="h-full bg-brand-600"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 glass-header border-b border-slate-200 shadow-sm transition-all duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo / Title -->
+                <a href="#inicio" onclick="navigateTo('inicio')" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-800 to-brand-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors">EconomizeComApp</span>
+                        <span class="hidden sm:block text-[11px] font-medium text-slate-500 -mt-1 tracking-wider uppercase">Finanças & Tecnologia</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Menu -->
+                <nav class="hidden lg:flex items-center space-x-1">
+                    <a href="#inicio" onclick="navigateTo('inicio')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-brand-600 hover:bg-brand-50 transition-all">Início</a>
+                    <a href="#categoria-apps-de-descontos" onclick="filterCategory('Apps de Descontos')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-brand-600 hover:bg-brand-50 transition-all">Apps de Descontos</a>
+                    <a href="#categoria-financas-pessoais" onclick="filterCategory('Finanças Pessoais')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-brand-600 hover:bg-brand-50 transition-all">Finanças Pessoais</a>
+                    <a href="#categoria-cupons-e-promocoes" onclick="filterCategory('Cupons e Promoções')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-brand-600 hover:bg-brand-50 transition-all">Cupons e Promoções</a>
+                    <a href="#categoria-ferramentas-digitais" onclick="filterCategory('Ferramentas Digitais')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-brand-600 hover:bg-brand-50 transition-all">Ferramentas Digitais</a>
+                    <a href="#contato" onclick="navigateTo('contato')" class="ml-2 px-4 py-2 rounded-lg text-sm font-semibold text-brand-600 bg-brand-50 hover:bg-brand-600 hover:text-white transition-all border border-brand-200">Contato</a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none" aria-label="Abrir menu">
+                        <svg class="w-6 h-6" id="menu-icon-open" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="w-6 h-6 hidden" id="menu-icon-close" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-lg">
+            <a href="#inicio" onclick="navigateTo('inicio'); toggleMobileMenu();" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600">Início</a>
+            <a href="#categoria-apps-de-descontos" onclick="filterCategory('Apps de Descontos'); toggleMobileMenu();" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600">Apps de Descontos</a>
+            <a href="#categoria-financas-pessoais" onclick="filterCategory('Finanças Pessoais'); toggleMobileMenu();" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600">Finanças Pessoais</a>
+            <a href="#categoria-cupons-e-promocoes" onclick="filterCategory('Cupons e Promoções'); toggleMobileMenu();" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600">Cupons e Promoções</a>
+            <a href="#categoria-ferramentas-digitais" onclick="filterCategory('Ferramentas Digitais'); toggleMobileMenu();" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-brand-600">Ferramentas Digitais</a>
+            <a href="#contato" onclick="navigateTo('contato'); toggleMobileMenu();" class="block px-3 py-2.5 rounded-lg text-base font-medium text-brand-600 bg-brand-50 font-semibold text-center mt-2">Contato</a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="app-container" class="flex-grow">
+        <!-- Content dynamically injected via JavaScript -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Column 1: Brand Info -->
+                <div class="md:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold">
+                            E
+                        </div>
+                        <span class="text-xl font-bold text-white tracking-tight">EconomizeComApp</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-md">
+                        Seu portal independente com orientações educacionais e análises sobre o uso inteligente da tecnologia para otimização de orçamentos e economia pessoal.
+                    </p>
+                </div>
+
+                <!-- Column 2: Quick Navigation -->
+                <div>
+                    <h3 class="text-sm font-semibold text-white tracking-wider uppercase mb-4">Navegação</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#inicio" onclick="navigateTo('inicio')" class="hover:text-white transition-colors">Início</a></li>
+                        <li><a href="#categoria-apps-de-descontos" onclick="filterCategory('Apps de Descontos')" class="hover:text-white transition-colors">Apps de Descontos</a></li>
+                        <li><a href="#categoria-financas-pessoais" onclick="filterCategory('Finanças Pessoais')" class="hover:text-white transition-colors">Finanças Pessoais</a></li>
+                        <li><a href="#categoria-cupons-e-promocoes" onclick="filterCategory('Cupons e Promoções')" class="hover:text-white transition-colors">Cupons e Promoções</a></li>
+                        <li><a href="#categoria-ferramentas-digitais" onclick="filterCategory('Ferramentas Digitais')" class="hover:text-white transition-colors">Ferramentas Digitais</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Legal & Support -->
+                <div>
+                    <h3 class="text-sm font-semibold text-white tracking-wider uppercase mb-4">Institucional</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#contato" onclick="navigateTo('contato')" class="hover:text-white transition-colors">Contato</a></li>
+                        <li><a href="#privacidade" onclick="navigateTo('privacidade')" class="hover:text-white transition-colors">Política de Privacidade</a></li>
+                        <li><a href="#termos" onclick="navigateTo('termos')" class="hover:text-white transition-colors">Termos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>&copy; 2026 EconomizeComApp. Todos os direitos reservados.</p>
+                <div class="flex items-center space-x-6">
+                    <a href="#privacidade" onclick="navigateTo('privacidade')" class="hover:text-slate-400">Privacidade</a>
+                    <a href="#termos" onclick="navigateTo('termos')" class="hover:text-slate-400">Termos</a>
+                    <a href="#contato" onclick="navigateTo('contato')" class="hover:text-slate-400">Contato</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Store for Articles
+        const articles = [
+            {
+                id: " cash-back-e-como-funciona",
+                slug: "o-que-e-cashback-e-como-funciona-nos-principais-apps",
+                title: "O que é cashback e como funciona nos principais apps",
+                category: "Apps de Descontos",
+                featured: true,
+                readTime: "6 min de leitura",
+                date: "18 de Agosto, 2026",
+                summary: "Entenda o conceito de reembolso em dinheiro, o modelo de negócios das empresas do setor e como utilizar os aplicativos com segurança e eficiência financeira.",
+                content: `
+                    <h2>Entendendo o conceito fundamental de cashback</h2>
+                    <p>O termo "cashback" deriva do inglês e significa literalmente "dinheiro de volta". Na prática, trata-se de um sistema onde o consumidor realiza uma compra e recebe de volta uma porcentagem do valor gasto. Ao contrário dos programas tradicionais de pontos ou milhas, que frequentemente exigem conversões complexas ou expiram após determinado período, o cashback devolve saldo em moeda corrente, que pode ser transferido para a conta bancária ou reutilizado em futuras transações.</p>
+
+                    <p>Essa modalidade transformou o comércio eletrônico e físico nos últimos anos. Para entender a dinâmica, é importante analisar como o ecossistema funciona nos bastidores: os aplicativos de cashback atuam como parceiros de divulgação de diversas lojas e estabelecimentos comerciais. Quando um cliente realiza uma compra através do aplicativo parceiro, a loja paga uma comissão ao app. O aplicativo, por sua vez, divide essa comissão com o usuário final.</p>
+
+                    <div class="bg-brand-50 border-l-4 border-brand-600 p-5 rounded-r-xl my-6">
+                        <h4 class="font-bold text-brand-900 text-base mb-1">Ponto-chave da economia inteligente:</h4>
+                        <p class="text-sm text-brand-800 m-0">O cashback não deve ser encarado como um incentivo ao consumo desenfreado, mas sim como um desconto diferido sobre compras que você já planejava realizar no seu orçamento regular.</p>
+                    </div>
+
+                    <h2>As modalidades mais comuns no mercado</h2>
+                    <p>A mecânica de funcionamento do cashback pode variar substancialmente dependendo do modelo do aplicativo ou da instituição financeira que o oferece. Abaixo estão as categorias fundamentais existentes hoje:</p>
+
+                    <h3>1. Cashback via portais e extensões de navegador</h3>
+                    <p>Nesta modalidade, o consumidor precisa iniciar sua jornada de compra dentro do portal do aplicativo ou ativar uma extensão instalada no navegador do computador. O sistema rastreia o link do usuário através de cookies de navegação e valida a transação assim que o pagamento é confirmado pelo lojista.</p>
+
+                    <h3>2. Cashback integrado a cartões de crédito e contas digitais</h3>
+                    <p>Diversos bancos e instituições financeiras oferecem reembolso direto na fatura do cartão de crédito ou como crédito em conta corrente para cada transação realizada. A porcentagem costuma ser fixa (por exemplo, 0,5% a 1% sobre todas as compras) ou variável de acordo com categorias específicas de produtos.</p>
+
+                    <h3>3. Cashback por nota fiscal no varejo físico</h3>
+                    <p>Bastante comum em supermercados, farmácias e postos de combustível. O usuário realiza a compra presencialmente, solicita o comprovante fiscal com seu CPF e escaneia o código QR do recibo no aplicativo para acumular o saldo correspondente.</p>
+
+                    <h2>Boas práticas para otimizar o recebimento do benefício</h2>
+                    <p>Embora a utilização de aplicativos de reembolso seja simples, adotar uma postura metódica garante que o dinheiro seja devidamente creditado em sua conta sem complicações operacionais:</p>
+
+                    <ul>
+                        <li><strong>Limpeza de cookies:</strong> Ao realizar compras pelo computador, certifique-se de não ter outros links de afiliados ou cupons conflitantes ativos na aba do navegador.</li>
+                        <li><strong>Atenção aos prazos de validação:</strong> O prazo para confirmação do saldo varia entre 30 e 90 dias, prazo necessário para garantir que o produto não foi devolvido ou cancelado pelo comprador.</li>
+                        <li><strong>Análise do preço base:</strong> Nem sempre a loja que oferece a maior taxa de cashback possui o menor preço final. Calcule sempre o valor total líquido (preço do item menos o reembolso estimado).</li>
+                    </ul>
+
+                    <h2>Conclusão</h2>
+                    <p>O cashback é uma das ferramentas mais eficazes do ecossistema digital para reduzir custos recorrentes. Ao integrar esse hábito à rotina de planejamento orçamentário, é possível resgatar valores expressivos ao longo do ano. Lembre-se sempre de priorizar a segurança de seus dados cadastrais, utilizar senhas fortes e encarar o reembolso como uma forma sólida de poupança continuada.</p>
+                `
+            },
+            {
+                id: "5-apps-para-economizar-no-supermercado",
+                slug: "5-aplicativos-para-economizar-no-supermercado",
+                title: "5 aplicativos para economizar no supermercado",
+                category: "Apps de Descontos",
+                featured: true,
+                readTime: "7 min de leitura",
+                date: "20 de Agosto, 2026",
+                summary: "Descubra como a tecnologia pode auxiliar na comparação de encartes, planejamento de listas inteligentes e identificação de ofertas em redes varejistas.",
+                content: `
+                    <h2>O impacto das compras de supermercado no orçamento familiar</h2>
+                    <p>As compras em redes de supermercados e atacarejos representam uma das maiores fatias das despesas fixas de uma família. Com a variação constante nos preços dos alimentos e itens de higiene, acompanhar as oscilações de valores sem o auxílio de ferramentas digitais tornou-se uma tarefa complexa. Felizmente, o segmento de aplicativos voltados para o consumo consciente evoluiu significativamente, permitindo mapear oportunidades reais de economia antes mesmo de sair de casa.</p>
+
+                    <h2>Categorias de ferramentas essenciais para a feira diária</h2>
+                    <p>Para estruturar uma estratégia eficiente de redução de custos no supermercado, é recomendável dividir o uso das tecnologias por etapas do processo de compra: planejamento, pesquisa de preços e pós-compra.</p>
+
+                    <h3>1. Aplicativos de encartes digitais e panfletos eletrônicos</h3>
+                    <p>Substituindo os antigos panfletos de papel impressos, existem plataformas centralizadoras que reúnem as ofertas diárias e semanais de diversas redes de supermercados da sua região geográfica. Através da geolocalização do smartphone, essas ferramentas exibem promoções atualizadas, permitindo comparar qual estabelecimento está com preços mais competitivos para determinado setor (como hortifrúti ou carnes).</p>
+
+                    <h3>2. Programas de fidelidade próprios de redes varejistas</h3>
+                    <p>Praticamente todas as grandes redes de supermercados possuem sistemas de fidelização digital. Ao cadastrar o CPF, o consumidor desbloqueia ofertas exclusivas "etiquetadas" nas prateleiras da loja física. A chave para utilizar essas plataformas sem gastar em excesso é manter o foco exclusivo nos itens presentes na sua lista prévia de compras.</p>
+
+                    <h3>3. Listas de compras inteligentes com sincronização</h3>
+                    <p>O erro mais comum ao frequentar um supermercado é a ausência de uma lista bem definida. Aplicativos organizadores de listas permitem categorizar itens por seção (laticínios, limpeza, mercearia), calcular a estimativa de custos antes de chegar ao caixa e compartilhar a atualização dos itens em tempo real com outros membros da família.</p>
+
+                    <h3>4. Comparadores colaborativos de preços comunitários</h3>
+                    <p>Plataformas alimentadas pela própria comunidade de consumidores permitem que usuários informem o preço atual de determinados produtos em tempo real. Essa transparência auxilia na identificação de quando uma "promoção" anunciada pelo estabelecimento representa, de fato, um desconto real.</p>
+
+                    <h3>5. Plataformas de combate ao desperdício de alimentos</h3>
+                    <p>Uma tendência em franca expansão envolve aplicativos que conectam estabelecimentos comerciais a consumidores interessados em adquirir produtos próximos à data de vencimento com descontos substanciais (frequentemente variando entre 50% e 70%). Essa prática, além de gerar economia expressiva, reduz o desperdício de alimentos na cadeia de suprimentos.</p>
+
+                    <h2>Estratégias avançadas para potencializar seus ganhos</h2>
+                    <p>Unir o uso de aplicativos a hábitos comportamentais fundamentais multiplica os resultados financeiros positivos:</p>
+
+                    <ul>
+                        <li><strong>Nunca vá às compras com fome:</strong> Estudos comprovam que compras realizadas em estado de apetite elevado aumentam a aquisição impulsiva de itens supérfluos.</li>
+                        <li><strong>Atenção ao custo por unidade/peso:</strong> Nem sempre a embalagem maior é a mais econômica. Compare o preço por quilo ou litro impresso nas etiquetas de gôndola.</li>
+                        <li><strong>Monitore o histórico de compras:</strong> Guardar os comprovantes fiscais escaneados permite avaliar a inflação pessoal dos itens consumidos com mais frequência pela sua casa.</li>
+                    </ul>
+
+                    <h2>Conclusão</h2>
+                    <p>A otimização dos gastos no supermercado através de aplicativos exige uma pequena mudança de rotina, mas traz resultados mensuráveis já no primeiro mês de implementação. Ao aliar planejamento rigoroso com o uso estratégico dessas cinco categorias de ferramentas, o consumidor assume o controle do seu orçamento diário de forma prática e sustentável.</p>
+                `
+            },
+            {
+                id: "como-usar-cupons-digitais-sem-complicacao",
+                slug: "como-usar-cupons-digitais-sem-complicacao",
+                title: "Como usar cupons digitais sem complicação",
+                category: "Cupons e Promoções",
+                featured: true,
+                readTime: "5 min de leitura",
+                date: "22 de Agosto, 2026",
+                summary: "Aprenda o passo a passo para encontrar, testar e aplicar códigos promocionais válidos em compras online, evitando armadilhas e frustrações comuns.",
+                content: `
+                    <h2>A evolução dos códigos promocionais no meio digital</h2>
+                    <p>O hábito de recortar cupons de desconto de jornais e revistas migrou completamente para o ambiente digital. Hoje, os cupons promocionais virtuais representam uma das formas mais diretas e imediatas de obter redução de preço em lojas virtuais, aplicativos de entrega e serviços por assinatura. No entanto, muitos consumidores enfrentam frustrações ao encontrar códigos expirados, inválidos ou com regras restritivas complexas.</p>
+
+                    <h2>Entendendo a anatomia e regras dos cupons</h2>
+                    <p>Para aplicar cupons digitais com eficiência, é indispensável compreender os diferentes tipos de condicionantes que os lojistas estabelecem para a liberação do desconto:</p>
+
+                    <h3>1. Valor mínimo de carrinho</h3>
+                    <p>É extremamente frequente que o código promocional só seja ativado se a soma dos produtos atingir um patamar específico (por exemplo: "R$ 30 de desconto em compras acima de R$ 200"). Nestes casos, inclua apenas itens de real necessidade para atingir o valor exigido.</p>
+
+                    <h3>2. Restrições por categoria ou marca</h3>
+                    <p>Nem todos os cupons são válidos para todo o site. É comum haver exceções relativas a lançamentos, eletrônicos de última geração ou produtos vendidos por lojistas terceirizados (marketplaces).</p>
+
+                    <h3>3. Cupons de primeira compra vs. clientes recorrentes</h3>
+                    <p>As lojas online costumam oferecer descontos mais agressivos para atrair novos usuários. Ler os termos com atenção evita tentar aplicar um código exclusivo para novos cadastros em contas antigas.</p>
+
+                    <h2>Métodos práticos para localizar cupons válidos</h2>
+                    <p>Em vez de buscar aleatoriamente em sites de pesquisa, adote um processo estruturado para encontrar códigos operacionais com facilidade:</p>
+
+                    <ul>
+                        <li><strong>Agregadores e extensões automatizadas:</strong> Ferramentas instaladas no navegador identificam automaticamente quando você está na etapa de checkout de uma loja virtual e testam uma lista de cupons cadastrados em segundos.</li>
+                        <li><strong>Boletins informativos (Newsletters):</strong> Inscrever-se no boletim por e-mail de suas lojas favoritas frequentemente rende um cupom de boas-vindas para ser utilizado na próxima compra.</li>
+                        <li><strong>Notificações de aplicativos oficiais:</strong> Ativar as notificações de pushes em aplicativos de varejo é uma das maneiras mais rápidas de receber cupons relâmpago com validade limitada.</li>
+                    </ul>
+
+                    <h2>Erros comuns a serem evitados</h2>
+                    <p>Um dos equívocos mais custosos é comprar um produto sem utilidade apenas para utilizar um cupom de grande valor. Lembre-se da regra de ouro da economia: o desconto de 100% ocorre quando você decide não comprar algo desnecessário.</p>
+
+                    <h2>Conclusão</h2>
+                    <p>Utilizar cupons digitais é uma prática inteligente que deve ser incorporada naturalmente ao processo de compras online. Dedicar dois a três minutos antes de finalizar qualquer pedido para buscar um código promocional ativo pode resultar em uma economia acumulada relevante no fim do ano.</p>
+                `
+            },
+            {
+                id: "apps-gratuitos-para-controlar-gastos-mensais",
+                slug: "apps-gratuitos-para-controlar-gastos-mensais",
+                title: "Apps gratuitos para controlar gastos mensais",
+                category: "Finanças Pessoais",
+                featured: false,
+                readTime: "8 min de leitura",
+                date: "15 de Agosto, 2026",
+                summary: "Análise metodológica sobre como utilizar planilhas e aplicativos de gestão orçamentária sem custos para organizar entradas, saídas e metas de poupança.",
+                content: `
+                    <h2>A importância da visibilidade financeira</h2>
+                    <p>A falta de clareza sobre para onde o dinheiro está indo ao longo do mês é a principal causa do endividamento e da incapacidade de construir uma reserva de emergência. A boa notícia é que não é necessário investir em sistemas pagos ou consultorias caros para obter total domínio sobre o seu fluxo de caixa. O mercado oferece excelentes ferramentas de gestão orçamentária totalmente gratuitas.</p>
+
+                    <h2>Metodologias de controle orçamentário recomendadas</h2>
+                    <p>Antes de escolher um aplicativo, é vital definir qual metodologia de organização se adapta melhor ao seu estilo de vida. Os aplicativos gratuitos geralmente suportam duas estratégias principais:</p>
+
+                    <h3>O Método 50/30/20</h3>
+                    <p>Nesta abordagem, a sua renda líquida mensal é dividida em três grandes blocos de despesas:</p>
+                    <ul>
+                        <li><strong>50% para Necessidades Essenciais:</strong> Aluguel, contas de luz, água, alimentação, saúde e transporte.</li>
+                        <li><strong>30% para Gastos Pessoais/Lazer:</strong> Restaurantes, entretenimento, hobbies e compras não essenciais.</li>
+                        <li><strong>20% para Metas Financeiras:</strong> Quitação de dívidas, reserva de emergência e investimentos de longo prazo.</li>
+                    </ul>
+
+                    <h3>O Orçamento Base Zero</h3>
+                    <p>Neste sistema, cada real que entra na sua conta deve receber um destino específico antes do início do mês (seja para pagar uma conta ou para ser direcionado à poupança), fazendo com que a soma das receitas menos as despesas planejadas seja igual a zero.</p>
+
+                    <h2>Recursos essenciais que um bom aplicativo gratuito deve oferecer</h2>
+                    <p>Ao selecionar um aplicativo para gerenciar suas contas, verifique se ele disponibiliza as seguintes funcionalidades sem a necessidade de assinaturas premium:</p>
+
+                    <ul>
+                        <li><strong>Categorização de despesas:</strong> Capacidade de agrupar gastos por áreas (Moradia, Alimentação, Transporte, Lazer) para facilitar a visualização por meio de gráficos simples.</li>
+                        <li><strong>Lembretes de vencimento de contas:</strong> Alertas configuráveis para evitar o pagamento de multas e juros por atraso na fatura de água, luz ou cartão.</li>
+                        <li><strong>Relatórios e gráficos intuitivos:</strong> Mapeamento visual das maiores fontes de ralo financeiro durante o mês.</li>
+                        <li><strong>Exportação de dados:</strong> Possibilidade de baixar seus dados em formato de planilha (.CSV ou .XLS) para análises mais aprofundadas.</li>
+                    </ul>
+
+                    <h2>Segurança e privacidade dos dados financeiros</h2>
+                    <p>Ao utilizar aplicativos de controle financeiro, a proteção das suas informações deve ser prioridade máxima. Opte sempre por ferramentas consolidada no mercado, que utilizem criptografia ponta a ponta, autenticação em dois fatores (2FA) e biometria para acesso ao aplicativo. Nunca compartilhe senhas bancárias de acesso a transações com ferramentas de terceiros.</p>
+
+                    <h2>Conclusão</h2>
+                    <p>O aplicativo mais eficiente é aquele que você efetivamente utiliza com constância. Seja por meio de digitação manual diária ou por sincronização automatizada, registrar cada saída financeira transforma a percepção do uso do seu dinheiro e abre espaço para o alcance de metas de longo prazo com tranquilidade.</p>
+                `
+            },
+            {
+                id: "aplicativos-de-transporte-como-gastar-menos-em-corridas",
+                slug: "aplicativos-de-transporte-como-gastar-menos-em-corridas",
+                title: "Aplicativos de transporte: como gastar menos em corridas",
+                category: "Finanças Pessoais",
+                featured: false,
+                readTime: "6 min de leitura",
+                date: "12 de Agosto, 2026",
+                summary: "Estratégias para evitar a tarifa dinâmica, escolher os melhores horários de deslocamento e combinar modos de mobilidade urbana de forma inteligente.",
+                content: `
+                    <h2>O peso da mobilidade urbana no orçamento diário</h2>
+                    <p>A conveniência dos aplicativos de mobilidade revolucionou a maneira como nos deslocamos pelas cidades. Contudo, a dependência diária desses serviços sem um planejamento adequado pode sobrecarregar consideravelmente o orçamento mensal. Compreender o funcionamento dos algoritmos de precificação é o primeiro passo para reduzir drasticamente o custo médio por quilômetro rodado.</p>
+
+                    <h2>Como funciona o algoritmo de preço dinâmico</h2>
+                    <p>Os preços das corridas em plataformas de transporte não são fixos; eles flutuam em tempo real com base na relação entre a oferta de motoristas disponíveis e a demanda de passageiros solicitando viagens em uma determinada zona geográfica. Quando a demanda supera a oferta, o preço dinâmico é acionado para equilibrar o sistema.</p>
+
+                    <h2>Táticas práticas para economizar em deslocamentos</h2>
+
+                    <h3>1. Otimização de horários de partida</h3>
+                    <p>Picos de tarifa dinâmica costumam ocorrer em horários previsíveis: entre 07h00 e 09h00 na parte da manhã, e das 17h30 às 19h30 no final da tarde, além de momentos de chuva intensa. Adiantar ou adiar sua partida em apenas 15 a 20 minutos pode reduzir o valor da tarifa pela metade.</p>
+
+                    <h3>2. Alteração do ponto de embarque ou desembarque</h3>
+                    <p>Solicitar a viagem diretamente em locais de altíssima aglomeração (como saídas de shows, estádios, aeroportos ou grandes centros empresariais) sujeita o passageiro às taxas mais altas. Caminhar duas ou três quadras para um local mais tranquilo antes de solicitar o veículo frequentemente diminui a tarifa de forma substancial.</p>
+
+                    <h3>3. Comparação de preços inter-plataformas</h3>
+                    <p>Manter mais de uma alternativa instalada no aparelho é indispensável. Não é raro encontrar diferenças de até 30% a 40% no valor da mesma rota entre plataformas distintas em um mesmo momento.</p>
+
+                    <h3>4. Integração multimodal (Mobilidade Híbrida)</h3>
+                    <p>Uma das estratégias mais eficientes em grandes metrópoles consiste em utilizar o aplicativo de mobilidade apenas para realizar o trecho inicial ou final até uma estação de metrô ou trem, cobrindo o trajeto mais longo por meio do transporte de alta capacidade.</p>
+
+                    <h2>Conclusão</h2>
+                    <p>Pequenas adaptações na forma de solicitar transportes por aplicativo geram economia expressiva sem comprometer o conforto e a pontualidade. Desenvolver a consciência sobre o preço dinâmico transforma a tecnologia em uma aliada do seu bolso.</p>
+                `
+            },
+            {
+                id: "ferramentas-digitais-para-comparar-precos-antes-de-comprar",
+                slug: "ferramentas-digitais-para-comparar-precos-antes-de-comprar",
+                title: "Ferramentas digitais para comparar preços antes de comprar",
+                category: "Ferramentas Digitais",
+                featured: false,
+                readTime: "7 min de leitura",
+                date: "10 de Agosto, 2026",
+                summary: "Saiba como analisar históricos de valores, configurar alertas de queda de preço e identificar promoções verdadeiras no e-commerce.",
+                content: `
+                    <h2>A ilusão do desconto no comércio eletrônico</h2>
+                    <p>A abundância de lojas virtuais facilita a pesquisa, mas também expõe o consumidor a estratégias de precificação psicológica e promoções maquiadas. O famoso termo "metade do dobro" refere-se à prática na qual estabelecimentos elevam os preços semanas antes de uma grande data comemorativa para simular um desconto agressivo posteriormente. As ferramentas de comparação de preço surgem como o antídoto definitivo para esse problema.</p>
+
+                    <h2>Funcionalidades essenciais das ferramentas comparadoras</h2>
+                    <p>Para tomar decisões de compra verdadeiramente fundamentadas, você deve utilizar recursos específicos oferecidos pelos comparadores digitais modernos:</p>
+
+                    <h3>1. Histórico de preços de 6 a 12 meses</h3>
+                    <p>Esta é a funcionalidade mais valiosa de qualquer comparador. O gráfico do histórico de preços revela se o valor atual daquele produto está realmente em uma baixa histórica ou se trata de um preço comum mascarado como promoção temporária.</p>
+
+                    <h3>2. Alertas de preço personalizados</h3>
+                    <p>Em vez de monitorar um produto diariamente de forma manual, você pode definir o valor ideal que está disposto a pagar por determinado item. Assim que alguma loja cadastrada atingir ou superar essa meta para baixo, a ferramenta envia um alerta instantâneo por e-mail ou notificação no celular.</p>
+
+                    <h3>3. Inclusão do cálculo de frete</h3>
+                    <p>Um item pode parecer mais barato em determinado site, mas apresentar um valor de frete abusivo que anula a vantagem inicial. Bons comparadores consideram a localização do comprador para apresentar a estimativa de custo total final.</p>
+
+                    <h2>Passo a passo para uma compra otimizada</h2>
+                    <ul>
+                        <li><strong>Identificação exata do modelo:</strong> Certifique-se de comparar o código do modelo exato do fabricante, pois pequenas variações nas especificações (como capacidade de memória ou voltagem) alteram significativamente o valor do produto.</li>
+                        <li><strong>Avaliação da reputação do lojista:</strong> Antes de optar pelo menor preço de um estabelecimento desconhecido, consulte plataformas independentes de avaliação de atendimento ao consumidor para evitar dissabores com entregas.</li>
+                        <li><strong>Combinação com cashback:</strong> Após definir a loja com o menor valor real via comparador, acesse o estabelecimento por meio de um portal de cashback para potencializar seus ganhos.</li>
+                    </ul>
+
+                    <h2>Conclusão</h2>
+                    <p>Pesquisar antes de comprar é uma atitude que protege o poder de compra das famílias. Com as ferramentas de comparação de preço, o consumidor retoma o controle da decisão, garantindo que cada investimento seja realizado no momento exato da melhor oportunidade de mercado.</p>
+                `
+            },
+            {
+                id: "guia-completo-como-escolher-o-melhor-app-de-economia",
+                slug: "guia-completo-como-escolher-o-melhor-app-de-economia-para-voce",
+                title: "Guia completo: como escolher o melhor app de economia para você",
+                category: "Ferramentas Digitais",
+                featured: false,
+                readTime: "9 min de leitura",
+                date: "05 de Agosto, 2026",
+                summary: "Um roteiro definitivo para avaliar usabilidade, privacidade, custos ocultos e aderência ao seu perfil financeiro pessoal.",
+                content: `
+                    <h2>A sobrecarga de opções no ecossistema de aplicativos</h2>
+                    <p>As lojas de aplicativos oferecem milhares de opções sob a promessa de ajudar a economizar dinheiro. Diante de tantas alternativas, muitos usuários acabam baixando dezenas de ferramentas que nunca utilizam ou que tornam a gestão financeira excessivamente burocrática. Escolher o aplicativo certo exige alinhar a tecnologia ao seu perfil pessoal e estilo de vida.</p>
+
+                    <h2>Mapeando suas reais necessidades financeiras</h2>
+                    <p>O primeiro passo na escolha de uma solução digital consiste em identificar claramente qual é a sua principal prioridade no momento atual. As necessidades costumam se dividir nas seguintes frentes:</p>
+
+                    <ul>
+                        <li><strong>Foco em organização primária:</strong> Ideal para quem não sabe exatamente para onde vai a renda mensal e necessita de um diário de despesas de fácil preenchimento.</li>
+                        <li><strong>Foco em economia nas compras do cotidiano:</strong> Indicado para quem já tem contas organizadas, mas quer maximizar benefícios em compras com cashback, cupons e comparadores.</li>
+                        <li><strong>Foco em quitação de dívidas ou metas:</strong> Recomendado para pessoas que buscam direcionar sobras orçamentárias para objetivos claros e de longo prazo.</li>
+                    </ul>
+
+                    <h2>Critérios técnicos indispensáveis para avaliação</h2>
+                    <p>Antes de adotar definitivamente qualquer aplicativo em sua rotina diária, avalie rigorosamente os seguintes critérios de qualidade:</p>
+
+                    <h3>1. Facilidade de navegação e usabilidade (UI/UX)</h3>
+                    <p>Se o aplicativo exigir muitos cliques para inserir uma simples despesa diária, a chance de você abandonar o hábito em poucas semanas é altíssima. Priorize interfaces limpas, rápidas e intuitivas.</p>
+
+                    <h3>2. Modelo de monetização da ferramenta</h3>
+                    <p>Lembre-se do ditado tecnológico: "quando o serviço é gratuito, o produto é você". Verifique como o aplicativo se financia. Prefira ferramentas transparente quanto ao modelo de negócios, garantindo que seus dados pessoais não estejam sendo comercializados sem autorização prévia.</p>
+
+                    <h3>3. Suporte técnico e atualizações constantes</h3>
+                    <p>Verifique a data da última atualização da ferramenta na loja oficial de aplicativos. Aplicativos frequentemente atualizados demonstram compromisso dos desenvolvedores com a correção de falhas e a manutenção da segurança digital.</p>
+
+                    <h2>Como realizar um teste prático de 14 dias</h2>
+                    <p>Em vez de assumir um compromisso definitivo com um novo aplicativo, realize um teste guiado de duas semanas seguindo estes três passos:</p>
+                    
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Cadastre apenas as categorias fundamentais de uso regular sem tentar cobrir detalhes excessivos nos primeiros dias.</li>
+                        <li>Utilize a ferramenta ao final de cada dia por no máximo três minutos para validar a agilidade de registro.</li>
+                        <li>Ao final dos 14 dias, avalie se os relatórios gerados trouxeram algum aprendizado prático que você não tinha antes de instalar a ferramenta.</li>
+                    </ol>
+
+                    <h2>Conclusão</h2>
+                    <p>O melhor aplicativo de economia não é o mais complexo ou o mais baixado da loja virtual, mas sim aquele que se integra perfeitamente à sua rotina sem gerar estresse. A tecnologia deve trabalhar a serviço da sua tranquilidade financeira, simplificando processos e permitindo decisões conscientes e sustentáveis.</p>
+                `
+            }
+        ];
+
+        // Categories Map
+        const categories = [
+            { name: "Apps de Descontos", count: 2, desc: "Aprenda a utilizar cashback e programas de recompensa no seu dia a dia.", color: "from-blue-600 to-indigo-600" },
+            { name: "Finanças Pessoais", count: 2, desc: "Dicas de controle orçamentário, organização e corte de gastos supérfluos.", color: "from-slate-700 to-slate-900" },
+            { name: "Cupons e Promoções", count: 1, desc: "Guia prático para validação de cupons promocionais em compras virtuais.", color: "from-blue-500 to-cyan-600" },
+            { name: "Ferramentas Digitais", count: 2, desc: "Análises de comparadores de preços e utilitários tecnológicos de economia.", color: "from-indigo-600 to-blue-800" }
+        ];
+
+        // Navigation Logic
+        function navigateTo(page, param = null) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const container = document.getElementById('app-container');
+            const progressContainer = document.getElementById('progress-container');
+            
+            // Hide progress bar by default
+            progressContainer.classList.add('hidden');
+
+            if (page === 'inicio') {
+                renderHome();
+            } else if (page === 'artigo') {
+                progressContainer.classList.remove('hidden');
+                renderArticleView(param);
+            } else if (page === 'categoria') {
+                renderCategoryView(param);
+            } else if (page === 'contato') {
+                renderContactView();
+            } else if (page === 'privacidade') {
+                renderPrivacyView();
+            } else if (page === 'termos') {
+                renderTermsView();
+            }
+        }
+
+        function filterCategory(categoryName) {
+            navigateTo('categoria', categoryName);
+        }
+
+        // Toggle Mobile Navigation
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-icon-open');
+            const closeIcon = document.getElementById('menu-icon-close');
+            
+            menu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        }
+
+        // Render Home View
+        function renderHome() {
+            const container = document.getElementById('app-container');
+            const featuredPosts = articles.filter(a => a.featured);
+            const regularPosts = articles.filter(a => !a.featured);
+
+            container.innerHTML = `
+                <!-- Hero Welcome Banner -->
+                <section class="hero-gradient text-white py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                    <div class="max-w-5xl mx-auto text-center relative z-10">
+                        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/30 text-brand-100 text-xs font-semibold tracking-wide uppercase border border-brand-400/30 mb-6 backdrop-blur-sm">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Educação Financeira & Tecnologia
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+                            EconomizeComApp
+                        </h1>
+                        <p class="text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed font-normal">
+                            Bem-vindo ao EconomizeComApp – dicas práticas para economizar usando tecnologia.
+                        </p>
+                        
+                        <!-- Search Bar -->
+                        <div class="mt-8 max-w-xl mx-auto relative">
+                            <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="Pesquisar artigos ou temas..." class="w-full pl-12 pr-4 py-4 rounded-xl text-slate-800 placeholder-slate-400 bg-white/95 shadow-xl focus:outline-none focus:ring-2 focus:ring-brand-400 text-sm">
+                            <svg class="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+                    <!-- Dynamic Search Results Box (Hidden by default) -->
+                    <div id="search-results-section" class="hidden space-y-6">
+                        <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span>Resultados da Busca</span>
+                            <span id="search-count" class="text-sm font-normal text-slate-500"></span>
+                        </h2>
+                        <div id="search-results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+                    </div>
+
+                    <!-- Section: Featured Articles (3 Destaques) -->
+                    <section id="featured-section" class="space-y-8">
+                        <div class="flex items-end justify-between border-b border-slate-200 pb-4">
+                            <div>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Artigos em Destaque</h2>
+                                <p class="text-slate-500 text-sm mt-1">Seleção dos guias mais lidos e relevantes da semana</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            ${featuredPosts.map(post => `
+                                <article class="bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col justify-between overflow-hidden">
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between gap-2 mb-4">
+                                            <span class="px-3 py-1 rounded-md bg-brand-50 text-brand-700 text-xs font-bold uppercase tracking-wider">
+                                                ${post.category}
+                                            </span>
+                                            <span class="text-xs text-slate-400 font-medium">${post.readTime}</span>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-slate-900 hover:text-brand-600 transition-colors leading-snug mb-3">
+                                            <a href="#artigo" onclick="navigateTo('artigo', '${post.id}')">${post.title}</a>
+                                        </h3>
+                                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                            ${post.summary}
+                                        </p>
+                                    </div>
+                                    <div class="px-6 pb-6 pt-0 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 mt-auto">
+                                        <span>${post.date}</span>
+                                        <a href="#artigo" onclick="navigateTo('artigo', '${post.id}')" class="inline-flex items-center gap-1 font-semibold text-brand-600 hover:text-brand-700">
+                                            Ler artigo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                        </a>
+                                    </div>
+                                </article>
+                            `).join('')}
+                        </div>
+                    </section>
+
+                    <!-- Section: Categories Quick Links -->
+                    <section class="space-y-8">
+                        <div class="flex items-end justify-between border-b border-slate-200 pb-4">
+                            <div>
+                                <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Categorias de Conteúdo</h2>
+                                <p class="text-slate-500 text-sm mt-1">Navegue por tópicos de seu interesse para encontrar orientações específicas</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            ${categories.map(cat => `
+                                <div onclick="filterCategory('${cat.name}')" class="cursor-pointer bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm card-hover group">
+                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${cat.color} text-white flex items-center justify-center font-bold text-lg mb-4 shadow-md group-hover:scale-110 transition-transform">
+                                        ${cat.name.charAt(0)}
+                                    </div>
+                                    <h3 class="font-bold text-slate-900 text-lg group-hover:text-brand-600 transition-colors mb-2">${cat.name}</h3>
+                                    <p class="text-xs text-slate-500 leading-relaxed mb-4">${cat.desc}</p>
+                                    <span class="inline-flex items-center text-xs font-semibold text-brand-600 group-hover:translate-x-1 transition-transform">
+                                        Explorar categoria &rarr;
+                                    </span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+
+                    <!-- Section: All Articles Grid -->
+                    <section id="all-posts-section" class="space-y-8">
+                        <div class="flex items-end justify-between border-b border-slate-200 pb-4">
+                            <div>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Todos os Artigos</h2>
+                                <p class="text-slate-500 text-sm mt-1">Acervo completo de publicações educativas do blog</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${articles.map(post => `
+                                <article class="bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col justify-between overflow-hidden">
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between gap-2 mb-4">
+                                            <span class="px-2.5 py-1 rounded bg-slate-100 text-slate-700 text-xs font-medium">
+                                                ${post.category}
+                                            </span>
+                                            <span class="text-xs text-slate-400">${post.readTime}</span>
+                                        </div>
+                                        <h3 class="text-lg font-bold text-slate-900 hover:text-brand-600 transition-colors leading-snug mb-3">
+                                            <a href="#artigo" onclick="navigateTo('artigo', '${post.id}')">${post.title}</a>
+                                        </h3>
+                                        <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                                            ${post.summary}
+                                        </p>
+                                    </div>
+                                    <div class="px-6 pb-6 pt-0 flex items-center justify-between text-xs text-slate-400 mt-auto border-t border-slate-50 pt-4">
+                                        <span>${post.date}</span>
+                                        <a href="#artigo" onclick="navigateTo('artigo', '${post.id}')" class="font-semibold text-brand-600 hover:underline">
+                                            Ler mais &rarr;
+                                        </a>
+                                    </div>
+                                </article>
+                            `).join('')}
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        // Render Category Filter View
+        function renderCategoryView(categoryName) {
+            const container = document.getElementById('app-container');
+            const filteredArticles = articles.filter(a => a.category.toLowerCase() === categoryName.toLowerCase());
+
+            container.innerHTML = `
+                <div class="bg-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8 mb-12">
+                    <div class="max-w-7xl mx-auto">
+                        <a href="#inicio" onclick="navigateTo('inicio')" class="inline-flex items-center text-xs text-slate-400 hover:text-white mb-4 transition-colors">
+                            &larr; Voltar para a Página Inicial
+                        </a>
+                        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">${categoryName}</h1>
+                        <p class="text-slate-400 text-sm mt-2">Exibindo ${filteredArticles.length} artigo(s) publicado(s) nesta categoria.</p>
+                    </div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+                    ${filteredArticles.length === 0 ? `
+                        <div class="bg-white p-12 text-center rounded-2xl border border-slate-200">
+                            <p class="text-slate-500">Nenhum artigo encontrado para esta categoria no momento.</p>
+                        </div>
+                    ` : `
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${filteredArticles.map(post => `
+                                <article class="bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col justify-between overflow-hidden">
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between gap-2 mb-4">
+                                            <span class="px-2.5 py-1 rounded bg-brand-50 text-brand-700 text-xs font-semibold">
+                                                ${post.category}
+                                            </span>
+                                            <span class="text-xs text-slate-400">${post.readTime}</span>
+                                        </div>
+                                        <h3 class="text-lg font-bold text-slate-900 hover:text-brand-600 transition-colors leading-snug mb-3">
+                                            <a href="#artigo" onclick="navigateTo('artigo', '${post.id}')">${post.title}</a>
+                                        </h3>
+                                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                            ${post.summary}
+                                        </p>
+                                    </div>
+                                    <div class="px-6 pb-6 pt-0 flex items-center justify-between text-xs text-slate-400 mt-auto border-t border-slate-50 pt-4">
+                                        <span>${post.date}</span>
+                                        <a href="#artigo" onclick="navigateTo('artigo', '${post.id}')" class="font-semibold text-brand-600 hover:underline">
+                                            Ler artigo &rarr;
+                                        </a>
+                                    </div>
+                                </article>
+                            `).join('')}
+                        </div>
+                    `}
+                </div>
+            `;
+        }
+
+        // Render Article Reading View
+        function renderArticleView(articleId) {
+            const container = document.getElementById('app-container');
+            const article = articles.find(a => a.id === articleId) || articles[0];
+            const related = articles.filter(a => a.id !== article.id && a.category === article.category).slice(0, 2);
+
+            container.innerHTML = `
+                <article class="py-12 bg-slate-50">
+                    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <!-- Breadcrumb -->
+                        <nav class="flex items-center gap-2 text-xs text-slate-500 mb-8">
+                            <a href="#inicio" onclick="navigateTo('inicio')" class="hover:text-brand-600">Início</a>
+                            <span>/</span>
+                            <a href="#categoria" onclick="filterCategory('${article.category}')" class="hover:text-brand-600">${article.category}</a>
+                            <span>/</span>
+                            <span class="text-slate-800 font-medium truncate max-w-xs">${article.title}</span>
+                        </nav>
+
+                        <!-- Article Header Card -->
+                        <header class="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200/80 shadow-sm mb-10">
+                            <div class="flex flex-wrap items-center gap-3 mb-6">
+                                <span class="px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-bold uppercase tracking-wider border border-brand-200">
+                                    ${article.category}
+                                </span>
+                                <span class="text-xs text-slate-400 font-medium">&bull; ${article.readTime}</span>
+                                <span class="text-xs text-slate-400 font-medium">&bull; Publicado em ${article.date}</span>
+                            </div>
+
+                            <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                                ${article.title}
+                            </h1>
+
+                            <p class="text-slate-600 text-base sm:text-lg leading-relaxed border-l-4 border-brand-500 pl-4 bg-slate-50/80 py-2 rounded-r-lg font-normal">
+                                ${article.summary}
+                            </p>
+                        </header>
+
+                        <!-- Article Body Container -->
+                        <div class="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200/80 shadow-sm text-slate-700 leading-relaxed text-base sm:text-lg space-y-6">
+                            <style>
+                                #article-content-body h2 {
+                                    font-size: 1.5rem;
+                                    font-weight: 800;
+                                    color: #0f172a;
+                                    margin-top: 2rem;
+                                    margin-bottom: 1rem;
+                                    letter-spacing: -0.025em;
+                                    border-bottom: 2px solid #f1f5f9;
+                                    padding-bottom: 0.5rem;
+                                }
+                                #article-content-body h3 {
+                                    font-size: 1.25rem;
+                                    font-weight: 700;
+                                    color: #1e293b;
+                                    margin-top: 1.5rem;
+                                    margin-bottom: 0.75rem;
+                                }
+                                #article-content-body p {
+                                    margin-bottom: 1.25rem;
+                                    line-height: 1.8;
+                                    color: #334155;
+                                }
+                                #article-content-body ul {
+                                    list-style-type: disc;
+                                    padding-left: 1.5rem;
+                                    margin-bottom: 1.5rem;
+                                    space-y: 0.5rem;
+                                }
+                                #article-content-body li {
+                                    margin-bottom: 0.5rem;
+                                    color: #334155;
+                                }
+                            </style>
+                            <div id="article-content-body">
+                                ${article.content}
+                            </div>
+                        </div>
+
+                        <!-- Back Button & Author Box -->
+                        <div class="mt-10 flex flex-col sm:flex-row items-center justify-between bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">
+                                    ECA
+                                </div>
+                                <div>
+                                    <span class="block text-sm font-bold text-slate-900">Redação EconomizeComApp</span>
+                                    <span class="block text-xs text-slate-500">Conteúdo puramente educativo e independente</span>
+                                </div>
+                            </div>
+                            <a href="#inicio" onclick="navigateTo('inicio')" class="px-5 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold hover:bg-brand-600 hover:text-white transition-all">
+                                &larr; Voltar para a Home
+                            </a>
+                        </div>
+
+                        <!-- Related Articles Section -->
+                        ${related.length > 0 ? `
+                            <div class="mt-16 space-y-6">
+                                <h3 class="text-xl font-bold text-slate-900">Artigos Relacionados</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    ${related.map(r => `
+                                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm card-hover">
+                                            <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">${r.category}</span>
+                                            <h4 class="font-bold text-slate-900 text-base mt-2 mb-2 hover:text-brand-600">
+                                                <a href="#artigo" onclick="navigateTo('artigo', '${r.id}')">${r.title}</a>
+                                            </h4>
+                                            <p class="text-slate-500 text-xs line-clamp-2">${r.summary}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </article>
+            `;
+
+            // Attach scroll listener for reading progress bar
+            window.onscroll = function() {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                const progressBar = document.getElementById("progress-bar");
+                if (progressBar) {
+                    progressBar.style.width = scrolled + "%";
+                }
+            };
+        }
+
+        // Render Contact Page View
+        function renderContactView() {
+            const container = document.getElementById('app-container');
+            container.innerHTML = `
+                <div class="py-16 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <div class="text-center mb-8">
+                            <h1 class="text-3xl font-extrabold text-slate-900">Fale Conosco</h1>
+                            <p class="text-slate-500 text-sm mt-2">Dúvidas, sugestões de pautas ou comentários sobre nossos guias? Envie sua mensagem abaixo ou diretamente para <a href="mailto:contato@economizecomapp.com.br" class="text-brand-600 font-semibold hover:underline">contato@economizecomapp.com.br</a>.</p>
+                        </div>
+
+                        <form action="mailto:contato@economizecomapp.com.br" method="POST" enctype="text/plain" onsubmit="handleContactSubmit(event)" class="space-y-6">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Nome Completo</label>
+                                <input type="text" name="Nome" required placeholder="Seu nome" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">E-mail de Contato</label>
+                                <input type="email" name="Email" required placeholder="seuemail@exemplo.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Assunto</label>
+                                <select name="Assunto" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm bg-white">
+                                    <option>Sugestão de Artigo</option>
+                                    <option>Dúvida sobre Conteúdo</option>
+                                    <option>Feedback Geral</option>
+                                    <option>Outros</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Mensagem</label>
+                                <textarea name="Mensagem" rows="5" required placeholder="Escreva sua mensagem aqui..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-3.5 bg-brand-600 text-white font-bold rounded-xl hover:bg-brand-700 transition-colors shadow-md shadow-brand-500/20 text-sm">
+                                Enviar Mensagem para contato@economizecomapp.com.br
+                            </button>
+                        </form>
+
+                        <div id="contact-success" class="hidden mt-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-center text-sm font-medium">
+                            Obrigado! Sua mensagem foi direcionada para <strong>contato@economizecomapp.com.br</strong>. Responderemos em breve.
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Privacy Policy View
+        function renderPrivacyView() {
+            const container = document.getElementById('app-container');
+            container.innerHTML = `
+                <div class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200/80 shadow-sm space-y-6 text-slate-700 text-sm leading-relaxed">
+                        <h1 class="text-3xl font-extrabold text-slate-900 mb-6">Política de Privacidade</h1>
+                        
+                        <p>A sua privacidade é de suma importância para o <strong>EconomizeComApp</strong>. Esta Política de Privacidade descreve como suas informações pessoais são tratadas ao navegar em nosso blog educacional.</p>
+
+                        <h2 class="text-lg font-bold text-slate-900 pt-4 border-b border-slate-200 pb-2">1. Coleta de Informações</h2>
+                        <p>O EconomizeComApp não exige cadastro compulsório nem coleta dados pessoais sensíveis para a leitura dos artigos. Informações genéricas de navegação podem ser armazenadas exclusivamente para métricas estatísticas de audiência e melhoria técnica da usabilidade da plataforma.</p>
+
+                        <h2 class="text-lg font-bold text-slate-900 pt-4 border-b border-slate-200 pb-2">2. Uso de Cookies</h2>
+                        <p>Utilizamos cookies estritamente necessários para otimizar o desempenho do site e guardar preferências de navegação do usuário. Não comercializamos dados de navegação com empresas terceirizadas de publicidade.</p>
+
+                        <h2 class="text-lg font-bold text-slate-900 pt-4 border-b border-slate-200 pb-2">3. Isenção de Links e Downloads Externos</h2>
+                        <p>Todo o conteúdo publicado possui caráter informativo e educacional. Não disponibilizamos links diretos para download de aplicativos de terceiros nem solicitamos dados bancários ou senhas de usuários.</p>
+
+                        <h2 class="text-lg font-bold text-slate-900 pt-4 border-b border-slate-200 pb-2">4. Atualizações desta Política</h2>
+                        <p>Esta política pode ser atualizada periodicamente para refletir melhorias nas nossas práticas de transparência. Recomendamos a consulta regular desta página.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Terms of Use View
+        function renderTermsView() {
+            const container = document.getElementById('app-container');
+            container.innerHTML = `
+                <div class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200/80 shadow-sm space-y-6 text-slate-700 text-sm leading-relaxed">
+                        <h1 class="text-3xl font-extrabold text-slate-900 mb-6">Termos de Uso</h1>
+
+                        <p>Ao acessar e utilizar o portal <strong>EconomizeComApp</strong>, você concorda expressamente com os seguintes termos e condições de uso:</p>
+
+                        <h2 class="text-lg font-bold text-slate-900 pt-4 border-b border-slate-200 pb-2">1. Caráter Educacional dos Conteúdos</h2>
+                        <p>As análises, guias e artigos disponibilizados neste blog possuem finalidade exclusivamente informativa e educacional. As informações não constituem recomendação oficial de investimento ou consultoria financeira individualizada.</p>
+
+                        <h2 class="text-lg font-bold text-slate-900 pt-4 border-b border-slate-200 pb-2">2. Propriedade Intelectual</h2>
+                        <p>Todos os textos, estruturas de tópicos, elementos gráficos e marcas presentes nesta plataforma estão protegidos pelas leis de propriedade intelectual. É proibida a reprodução integral não autorizada do conteúdo para fins comerciais.</p>
+
+                        <h2 class="text-lg font-bold text-slate-900 pt-4 border-b border-slate-200 pb-2">3. Limitação de Responsabilidade</h2>
+                        <p>As regras, taxas de cashback e valores de produtos mencionados nos artigos explicativos podem sofrer alterações pelas respectivas empresas fornecedoras das ferramentas sem prévio aviso. O leitor deve sempre validar os termos das ferramentas diretamente nas plataformas oficiais.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Live Search Handling
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const resultsSection = document.getElementById('search-results-section');
+            const resultsGrid = document.getElementById('search-results-grid');
+            const searchCount = document.getElementById('search-count');
+            const featuredSection = document.getElementById('featured-section');
+            const allPostsSection = document.getElementById('all-posts-section');
+
+            if (query.length < 2) {
+                resultsSection.classList.add('hidden');
+                if (featuredSection) featuredSection.classList.remove('hidden');
+                if (allPostsSection) allPostsSection.classList.remove('hidden');
+                return;
+            }
+
+            const matched = articles.filter(a => 
+                a.title.toLowerCase().includes(query) || 
+                a.summary.toLowerCase().includes(query) || 
+                a.category.toLowerCase().includes(query)
+            );
+
+            if (featuredSection) featuredSection.classList.add('hidden');
+            if (allPostsSection) allPostsSection.classList.add('hidden');
+            
+            resultsSection.classList.remove('hidden');
+            searchCount.innerText = `(${matched.length} encontrado(s))`;
+
+            if (matched.length === 0) {
+                resultsGrid.innerHTML = `<p class="col-span-full text-slate-500 py-8 text-center bg-white rounded-xl border border-slate-200">Nenhum artigo encontrado com o termo "${query}".</p>`;
+            } else {
+                resultsGrid.innerHTML = matched.map(post => `
+                    <article class="bg-white rounded-2xl border border-slate-200/80 shadow-sm card-hover flex flex-col justify-between overflow-hidden">
+                        <div class="p-6">
+                            <span class="px-2.5 py-1 rounded bg-brand-50 text-brand-700 text-xs font-semibold mb-3 inline-block">
+                                ${post.category}
+                            </span>
+                            <h3 class="text-lg font-bold text-slate-900 hover:text-brand-600 transition-colors leading-snug mb-3">
+                                <a href="#artigo" onclick="navigateTo('artigo', '${post.id}')">${post.title}</a>
+                            </h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                ${post.summary}
+                            </p>
+                        </div>
+                        <div class="px-6 pb-6 pt-0 flex items-center justify-between text-xs text-slate-400 mt-auto border-t border-slate-50 pt-4">
+                            <span>${post.date}</span>
+                            <a href="#artigo" onclick="navigateTo('artigo', '${post.id}')" class="font-semibold text-brand-600 hover:underline">
+                                Ler artigo &rarr;
+                            </a>
+                        </div>
+                    </article>
+                `).join('');
+            }
+        }
+
+        // Contact Form Submission Handler
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const successBox = document.getElementById('contact-success');
+            if (successBox) {
+                successBox.classList.remove('hidden');
+                event.target.reset();
+            }
+        }
+
+        // Initial App Load
+        window.onload = function() {
+            navigateTo('inicio');
+        };
+    </script>
 </body>
 </html>
