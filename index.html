@@ -209,6 +209,7 @@
             <!-- Desktop Menu -->
             <nav class="hidden md:flex items-center gap-1 lg:gap-2">
                 <button onclick="navigateTo('inicio')" class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all">Início</button>
+                <button onclick="navigateTo('sobre')" class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all">Sobre Nós</button>
                 <button onclick="navigateTo('categoria', 'Apps de Descontos')" class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all">Apps de Descontos</button>
                 <button onclick="navigateTo('categoria', 'Finanças Pessoais')" class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all">Finanças Pessoais</button>
                 <button onclick="navigateTo('categoria', 'Cupons e Promoções')" class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all">Cupons e Promoções</button>
@@ -227,6 +228,7 @@
         <!-- Mobile Drawer Menu -->
         <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800/80 bg-brand-dark/95 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-2">
             <button onclick="navigateTo('inicio'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">Início</button>
+            <button onclick="navigateTo('sobre'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">Sobre Nós</button>
             <button onclick="navigateTo('categoria', 'Apps de Descontos'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">Apps de Descontos</button>
             <button onclick="navigateTo('categoria', 'Finanças Pessoais'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">Finanças Pessoais</button>
             <button onclick="navigateTo('categoria', 'Cupons e Promoções'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800">Cupons e Promoções</button>
@@ -274,6 +276,8 @@
                     <span class="font-bold text-lg text-white">Economize<span class="text-brand-orange">ComApp</span></span>
                 </div>
                 <div class="flex flex-wrap justify-center gap-6 text-sm font-medium text-slate-400">
+                    <button onclick="navigateTo('sobre')" class="hover:text-brand-orange transition-colors">Sobre Nós</button>
+                    <span class="text-slate-700">|</span>
                     <button onclick="navigateTo('privacidade')" class="hover:text-brand-orange transition-colors">Política de Privacidade</button>
                     <span class="text-slate-700">|</span>
                     <button onclick="navigateTo('termos')" class="hover:text-brand-orange transition-colors">Termos de Uso</button>
@@ -438,7 +442,7 @@
                         <figcaption>Listas sincronizadas evitam compras por impulso e mantêm o valor da compra dentro do orçamento estipulado.</figcaption>
                     </figure>
                     <p>O consumo por impulso dentro do supermercado é um dos maiores vilões da economia doméstica. A disposição das prateleiras, o perfume de pães assados na hora e a iluminação estratégica das seções são projetados pelo marketing para estimular compras não planejadas.</p>
-                    <p>Para neutralizar essas armadilhas psicológicas, utilizar aplicativos de listas de compras inteligentes compartilhadas em tempo real é uma solução altamente eficaz. Essas ferramentas permitem que todos os membros da família adicionem itens à lista ao longo da semana, sincronizando os dados instantaneamente. Durante a navegação pelos corredores, o aplicativo calcula o valor total estimado da compra conforme os itens são marcados, emitindo alertas visuais caso o limite do orçamento pré-estabelecido seja ultrapassado antes de você chegar ao caixa.</p>
+                    <p>Para neutralizar essas armadilhas psicológicas, utilizar aplicativos de listas de compras inteligentes compartilhadas em tempo real é uma solução highly eficaz. Essas ferramentas permitem que todos os membros da família adicionem itens à lista ao longo da semana, sincronizando os dados instantaneamente. Durante a navegação pelos corredores, o aplicativo calcula o valor total estimado da compra conforme os itens são marcados, emitindo alertas visuais caso o limite do orçamento pré-estabelecido seja ultrapassado antes de você chegar ao caixa.</p>
 
                     <h2>5. Sacolas Surpresa e Combate ao Desperdício de Alimentos</h2>
                     <figure class="post-figure">
@@ -801,12 +805,12 @@
                 readTime: "10 min de leitura",
                 date: "02 Set, 2026",
                 featured: true,
-                image: "img/guardar-dinheiro.jpg",
+                image: "img/Financeiro.jpg",
                 summary: "Descubra quais são as armadilhas comportamentais e os pequenos vazamentos orçamentários que travam a sua capacidade de poupar e aprenda correções imediatas.",
                 content: `
                     <h2>O Perigo dos Desperdícios Invisíveis no Orçamento Doméstico</h2>
                     <figure class="post-figure">
-                        <img src="img/orcamento-domestico.jpg" alt="Gráficos financeiros e calculadora na mesa" loading="lazy">
+                        <img src="img/A Importância da Visibilidade Financeira no Século XXI.jpg" alt="Gráficos financeiros e calculadora na mesa" loading="lazy">
                         <figcaption>Identificar vazamentos silenciosos no orçamento é o primeiro passo para construir uma reserva sólida.</figcaption>
                     </figure>
                     <p>É uma experiência extremamente comum entre profissionais das mais diversas áreas: o salário entra na conta no início do mês, os compromissos básicos de moradia e alimentação são quitados, mas, poucas semanas depois, a conta bancária parece evaporar misteriosamente. Ao olhar para o extrato, não há nenhuma grande compra de luxo ou gasto extravagante que justifique o esgotamento do saldo. Afinal, onde foi parar o dinheiro?</p>
@@ -819,7 +823,7 @@
 
                     <h2>Erro 1: Tentar Guardar Apenas "O Que Sobrar" no Fim do Mês</h2>
                     <figure class="post-figure">
-                        <img src="img/fim-do-mes.jpg" alt="Planejamento de orçamento e distribuição do salário no celular" loading="lazy">
+                        <img src="img/Aplicações da Regra Orçamentária 50-30-20 com Suporte Tecnológico.jpg" alt="Planejamento de orçamento e distribuição do salário no celular" loading="lazy">
                         <figcaption>Trate a sua economia mensal como o compromisso financeiro mais importante do seu mês.</figcaption>
                     </figure>
                     <p>Esta é a armadilha número um da finança comportamental. A imensa maioria das pessoas adota a seguinte fórmula para o seu mês: <em>Renda − Gastos = Poupança</em>. O grande problema dessa equação é que ela viola a famosa Lei de Parkinson das Finanças: as despesas humanas tendem a se expandir naturalmente até ocupar todo o limite de dinheiro disponível na conta corrente.</p>
@@ -832,7 +836,7 @@
 
                     <h2>Erro 2: O Acúmulo de Assinaturas Esquecidas e Microtransações Recorrentes</h2>
                     <figure class="post-figure">
-                        <img src="img/microtransacoes-recorrentes.jpg" alt="Gerenciamento de assinaturas e notificações no smartphone" loading="lazy">
+                        <img src="img/Aplicativos3.jpg" alt="Gerenciamento de assinaturas e notificações no smartphone" loading="lazy">
                         <figcaption>Auditar suas faturas de cartão de crédito a cada trimestre elimina mensalidades fantasmas.</figcaption>
                     </figure>
                     <p>Com o avanço da economia de recorrência, quase tudo se transformou em mensalidade. Plataformas de streaming de filme, aplicativos de música, armazenamento em nuvem, ferramentas de inteligência artificial, aplicativos de treino e academias de rede cobram valores fracionados — R$ 14,90, R$ 29,90 ou R$ 49,90 — diretamente no cartão de crédito.</p>
@@ -845,7 +849,7 @@
 
                     <h2>Erro 3: Depender do Cartão de Crédito ou Cheque Especial como "Reserva de Emergência"</h2>
                     <figure class="post-figure">
-                        <img src="img/reserva-de-emergencia.jpg" alt="Cartão de crédito e celular na mão" loading="lazy">
+                        <img src="img/Principais Cuidados, Taxas Ocultas e Armadilhas Cognitivas.jpg" alt="Cartão de crédito e celular na mão" loading="lazy">
                         <figcaption>O cartão de crédito é uma excelente ferramenta de pagamento, mas um péssimo substituto para uma reserva líquida.</figcaption>
                     </figure>
                     <p>Imprevistos acontecem com todos: a bateria do carro falha, o pet precisa de consulta veterinária urgente ou um dente exige tratamento imediato. Quando um indivíduo não possui um fundo de emergência alocado em dinheiro com liquidez, a solução quase automática é parcelar a despesa no cartão de crédito ou recorrer ao limite da conta corrente (cheque especial).</p>
@@ -856,12 +860,12 @@
 
                     <h2>Erro 4: Guardar Dinheiro sem Metas Claras e Mensuráveis</h2>
                     <figure class="post-figure">
-                        <img src="img/metas-claras-mensuraveis.jpg" alt="Pessoa definindo metas financeiras no tablet e bloco de notas" loading="lazy">
+                        <img src="img/Listas Inteligentes Compartilhadas e Custo Estimado.jpg" alt="Pessoa definindo metas financeiras no tablet e bloco de notas" loading="lazy">
                         <figcaption>Atribuir nome, prazo e valor para suas economias fortalece a disciplina contra compras por impulso.</figcaption>
                     </figure>
                     <p>Guardar dinheiro "por guardar" ou com um objetivo genérico como "ficar rico" raramente sustenta a disciplina necessária ao longo de meses ou anos. Quando o saldo acumulado atinge R$ 3.000 sem uma meta definida, a mente humana tende a enxergar aquele valor como um saldo livre disponível para gastar com um smartphone novo, uma viagem não planejada ou trocas de vestuário.</p>
 
-                    <p>Sem um propósito específico e emocionalmente forte vinculado àquele montante, a tentação de resgatar o dinheiro na primeira promoção tentadora do comércio eletrônico se torna praticamente irresistível.</p>
+                    <p>Sem um propósito específico e emocionalmente forte vinculado àquele montante, a tentação de resgatar o dinheiro na primeira promoção tentadora do comércio eletrônico se torna praticamente irresistible.</p>
 
                     <p><strong>Como Corrigir Ainda Hoje:</strong> Aplique a metodologia SMART nas suas finanças. Abra o seu bloco de notas ou app financeiro e dê um nome claro, um prazo e um valor exato para os seus objetivos. Em vez de "Quero poupar", defina: <em>"Vou acumular R$ 6.000 para a minha Reserva de Emergência até dezembro de 2026, poupando R$ 500 por mês"</em>. Divida esse saldo no seu banco em subcontas categorizadas (Ex: "Viagem de Fim de Ano", "Troca do Carro", "Futuro"). Ter rótulos claros para o seu dinheiro reduz drasticamente a vontade de gastá-lo por impulso.</p>
 
@@ -869,7 +873,7 @@
 
                     <h2>Erro 5: O Viés do "Eu Mereço" Sem Planejamento Prévio</h2>
                     <figure class="post-figure">
-                        <img src="img/sem-planejamento-previo.jpg" alt="Pessoa fazendo compras online no notebook" loading="lazy">
+                        <img src="img/Desconto.jpg" alt="Pessoa fazendo compras online no notebook" loading="lazy">
                         <figcaption>Recompensas emocionais devem ser orçadas com antecedência para não sabotar suas metas de longo prazo.</figcaption>
 
                     </figure>
@@ -877,7 +881,7 @@
 
                     <p>Você absolutamente merece desfrutar do fruto do seu trabalho. No entanto, quando o "Eu Mereço" se torna a justificativa padrão para compras não planejadas e frequentes, ele deixa de ser um momento especial de prazer e se transforma em um ralo financeiro alimentado pelo estresse diário.</p>
 
-                    <p><strong>Como Corrigir Ainda Hoje:</strong> Adote a <strong>Regra das 72 Horas</strong> e crie a linha orçamentária do "Dinheiro da Livre Lazer". Sempre que sentir o desejo impulsivo de comprar algo não essencial, adie a decisão por exatamente três dias. Se após 72 horas o desejo persistir, faça a compra — mas pague com o saldo previamente reservado na sua categoria de lazer do mês (os 30% da regra 50/30/20 que discutimos em nosso artigo sobre gerenciadores de gastos). Dessa forma, você satisfaz seus desejos com consciência sem estourar o orçamento doméstico.</p>
+                    <p><strong>Como Corrigir Ainda Hoje:</strong> Adote a <strong>Regra das 72 Horas</strong> e crie a linha orçamentária do "Dinheiro do Livre Lazer". Sempre que sentir o desejo impulsivo de comprar algo não essencial, adie a decisão por exatamente três dias. Se após 72 horas o desejo persistir, faça a compra — mas pague com o saldo previamente reservado na sua categoria de lazer do mês (os 30% da regra 50/30/20 que discutimos em nosso artigo sobre gerenciadores de gastos). Dessa forma, você satisfaz seus desejos com consciência sem estourar o orçamento doméstico.</p>
 
                     <h2>Conclusão</h2>
                     <p>Poupar dinheiro de forma consistente não é uma questão de sacrificar totalmente a sua qualidade de vida no presente, nem depende exclusivamente de aumentos salariais expressivos. Trata-se, acima de tudo, de fechar as brechas comportamentais por onde o seu esforço diário escapa sem trazer valor real.</p>
@@ -905,6 +909,8 @@
 
                 if (page === 'inicio') {
                     renderHome();
+                } else if (page === 'sobre') {
+                    renderAboutView();
                 } else if (page === 'artigo') {
                     renderArticleView(param);
                 } else if (page === 'categoria') {
@@ -1067,7 +1073,7 @@
 
             articlesDatabase.forEach(article => {
                 html += `
-                    <div onclick="navigateTo('artigo', '${article.slug}')" class="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer flex flex-col sm:flex-row gap-5 items-center group">
+                    <div onclick="navigateTo('artigo', '${article.slug}')" class="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer flex flex-col sm:flex-row gap-6 items-center group">
                         <img src="${article.image}" alt="${article.title}" class="w-full sm:w-36 h-36 object-cover rounded-xl border border-slate-800 group-hover:scale-105 transition-transform duration-300" loading="lazy">
                         <div class="flex-1">
                             <div class="flex items-center gap-2 text-xs text-slate-400 mb-2">
@@ -1096,6 +1102,87 @@
 
             // Ativa a verificação de rolagem e observer para revelar os Posts em Destaque
             setTimeout(initScrollObserver, 50);
+        }
+
+        function renderAboutView() {
+            const container = document.getElementById('app-container');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+                    <button onclick="navigateTo('inicio')" class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-brand-orange mb-8 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg> Voltar para o início
+                    </button>
+
+                    <!-- Hero Banner da Página Sobre -->
+                    <div class="glass-card rounded-3xl p-8 sm:p-12 border border-slate-800 relative overflow-hidden mb-10 text-center">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-orange/20 rounded-full blur-3xl pointer-events-none"></div>
+                        <span class="inline-block px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-orange/10 text-brand-orange border border-brand-orange/20 uppercase tracking-widest mb-4">
+                            Nossa História & Missão
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
+                            Sobre Nós
+                        </h1>
+                        <p class="text-lg sm:text-xl font-semibold text-brand-orange max-w-2xl mx-auto leading-relaxed">
+                            "Você trabalha duro pelo seu dinheiro. Ele deveria trabalhar duro por você."
+                        </p>
+                    </div>
+
+                    <!-- Conteúdo Principal -->
+                    <div class="glass-card rounded-3xl p-8 sm:p-10 border border-slate-800/80 space-y-8">
+                        <div class="space-y-4 text-slate-300 leading-relaxed text-base sm:text-lg">
+                            <p>
+                                O <strong class="text-white">EconomizeComApp</strong> nasceu ao perceber que existem centenas de aplicativos de finanças, mas poucos realmente ajudam quem ganha pouco e quer economizar de verdade.
+                            </p>
+                            <p>
+                                Aqui, nossa missão é <strong class="text-white">filtrar o ruído</strong>. Nossa equipe testa, compara e explica de forma simples apenas ferramentas gratuitas que passam no nosso crivo de 3 regras:
+                            </p>
+                        </div>
+
+                        <!-- Grid das 3 Regras -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 pb-2">
+                            <div class="p-6 rounded-2xl bg-brand-card/80 border border-slate-800 hover:border-brand-orange/40 transition-colors text-center group">
+                                <div class="w-12 h-12 rounded-xl bg-brand-orange/10 text-brand-orange font-extrabold text-xl flex items-center justify-center mx-auto mb-4 border border-brand-orange/20 group-hover:scale-110 transition-transform">
+                                    1
+                                </div>
+                                <h3 class="text-white font-bold text-lg mb-2">É realmente grátis?</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">Avaliamos se a ferramenta é genuinamente gratuita e sem taxas ou cobranças escondidas.</p>
+                            </div>
+
+                            <div class="p-6 rounded-2xl bg-brand-card/80 border border-slate-800 hover:border-brand-orange/40 transition-colors text-center group">
+                                <div class="w-12 h-12 rounded-xl bg-brand-orange/10 text-brand-orange font-extrabold text-xl flex items-center justify-center mx-auto mb-4 border border-brand-orange/20 group-hover:scale-110 transition-transform">
+                                    2
+                                </div>
+                                <h3 class="text-white font-bold text-lg mb-2">É seguro?</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">Verificamos rigorosamente os protocolos de privacidade e proteção aos seus dados pessoais.</p>
+                            </div>
+
+                            <div class="p-6 rounded-2xl bg-brand-card/80 border border-slate-800 hover:border-brand-orange/40 transition-colors text-center group">
+                                <div class="w-12 h-12 rounded-xl bg-brand-orange/10 text-brand-orange font-extrabold text-xl flex items-center justify-center mx-auto mb-4 border border-brand-orange/20 group-hover:scale-110 transition-transform">
+                                    3
+                                </div>
+                                <h3 class="text-white font-bold text-lg mb-2">Realmente te faz economizar?</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">Testamos na prática o impacto no seu bolso para garantir economia real no dia a dia.</p>
+                            </div>
+                        </div>
+
+                        <!-- Destaque / Manifesto Final -->
+                        <div class="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-brand-orange/15 via-brand-dark to-brand-amber/10 border border-brand-orange/30 flex flex-col sm:flex-row items-center gap-6">
+                            <div class="w-16 h-16 rounded-2xl btn-gradient flex items-center justify-center text-white shrink-0 text-2xl font-black shadow-lg">
+                                E
+                            </div>
+                            <div class="text-center sm:text-left">
+                                <p class="text-white font-bold text-lg sm:text-xl leading-snug">
+                                    Não somos um banco. Somos o seu atalho para pagar menos, guardar mais e ter tranquilidade no fim do mês.
+                                </p>
+                                <p class="text-brand-orange font-bold text-sm mt-2 tracking-wide uppercase">
+                                    EconomizeComApp - Tecnologia para o seu bolso.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
         function initScrollObserver() {
