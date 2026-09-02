@@ -180,6 +180,78 @@
         }
     </style>
 </head>
+    <style>
+#faixa-topo-520 {
+  width: 100%;
+  background: linear-gradient(90deg, #F0FDF4 0%, #ECFDF5 50%, #F0FDF4 100%);
+  border-bottom: 1px solid #D1FAE5;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+#faixa-topo-520 .grafico-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#faixa-topo-520 svg {
+  width: 26px;
+  height: 18px;
+}
+#faixa-topo-520 #contador-520 {
+  font-weight: 800;
+  font-size: 20px;
+  color: #065F46;
+}
+#faixa-topo-520 .txt {
+  font-size: 14px;
+  color: #4B5563;
+}
+#faixa-topo-520 .txt strong {
+  color: #065F46;
+  font-weight: 700;
+}
+@media (max-width: 600px) {
+  #faixa-topo-520 .txt { font-size: 13px; }
+  #faixa-topo-520 #contador-520 { font-size: 18px; }
+}
+</style>
+
+<div id="faixa-topo-520">
+  <div class="grafico-box">
+    <!-- Mini gráfico em linha subindo -->
+    <svg viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 15 L6 12 L12 14 L18 7 L24 9 L32 2" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="32" cy="2" r="3" fill="#10B981"/>
+    </svg>
+    <span id="contador-520">0</span>
+  </div>
+  <span class="txt"><strong>leitores</strong> já passaram por aqui. Obrigado!</span>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const el = document.getElementById("contador-520");
+  const fim = 520;
+  let inicio = 0;
+  const duracao = 1800; // 1.8 segundos subindo
+  const passo = 16;
+  const incremento = fim / (duracao / passo);
+  
+  let timer = setInterval(() => {
+    inicio += incremento;
+    if (inicio >= fim) {
+      inicio = fim;
+      clearInterval(timer);
+    }
+    el.textContent = Math.floor(inicio);
+  }, passo);
+});
+</script>
 <body class="min-h-screen flex flex-col antialiased selection:bg-brand-orange selection:text-white relative">
 
     <div id="progress-container" class="fixed top-0 left-0 w-full z-50 hidden">
