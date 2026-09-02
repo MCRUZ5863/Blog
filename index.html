@@ -219,37 +219,64 @@
   #faixa-topo-520 .txt { font-size: 13px; }
   #faixa-topo-520 #contador-520 { font-size: 18px; }
 }
+<style>
+#faixa-final {
+  width: 100%;
+  background: linear-gradient(90deg, #F8FFFB 0%, #ECFDF5 100%);
+  border: 1px solid #D1FAE5;
+  border-left: 0;
+  border-right: 0;
+  padding: 11px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+}
+#faixa-final .icon-box {
+  width: 28px;
+  height: 28px;
+  background: #D1FAE5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#faixa-final #num-final {
+  font-weight: 800;
+  font-size: 20px;
+  color: #065F46;
+  letter-spacing: -0.5px;
+}
+#faixa-final .txt-final {
+  font-size: 14px;
+  color: #6B7280;
+}
+#faixa-final .txt-final b { color: #111827; }
 </style>
 
-<div id="faixa-topo-520">
-  <div class="grafico-box">
-    <!-- Mini gráfico em linha subindo -->
-    <svg viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 15 L6 12 L12 14 L18 7 L24 9 L32 2" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="32" cy="2" r="3" fill="#10B981"/>
+<div id="faixa-final">
+  <div class="icon-box">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#065F46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="20" x2="12" y2="10"></line>
+      <line x1="18" y1="20" x2="18" y2="4"></line>
+      <line x1="6" y1="20" x2="6" y2="16"></line>
     </svg>
-    <span id="contador-520">0</span>
   </div>
-  <span class="txt"><strong>leitores</strong> já passaram por aqui. Obrigado!</span>
+  <span id="num-final">0</span>
+  <span class="txt-final"><b>leitores</b> acompanhando o blog</span>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const el = document.getElementById("contador-520");
-  const fim = 570;
-  let inicio = 0;
-  const duracao = 1800; // 1.8 segundos subindo
-  const passo = 16;
-  const incremento = fim / (duracao / passo);
-  
-  let timer = setInterval(() => {
-    inicio += incremento;
-    if (inicio >= fim) {
-      inicio = fim;
-      clearInterval(timer);
-    }
-    el.textContent = Math.floor(inicio);
-  }, passo);
+document.addEventListener("DOMContentLoaded", () => {
+  const el = document.getElementById("num-final");
+  let count = 0;
+  const target = 520;
+  const interval = setInterval(() => {
+    count += 8;
+    if (count >= target) { count = target; clearInterval(interval); }
+    el.innerText = count;
+  }, 20);
 });
 </script>
 <body class="min-h-screen flex flex-col antialiased selection:bg-brand-orange selection:text-white relative">
