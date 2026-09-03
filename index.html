@@ -1374,107 +1374,96 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         function renderContactView() {
-    const container = document.getElementById('app-container');
-    if (!container) return;
+            const container = document.getElementById('app-container');
+            if (!container) return;
 
-    container.innerHTML = `
-        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <div class="glass-card rounded-2xl p-8 border border-slate-800">
-                <h2 class="text-3xl font-extrabold text-white text-center mb-2">Entre em Contato</h2>
-                <p class="text-slate-400 text-center text-sm mb-8">Dúvidas, sugestões ou parcerias? Envie sua mensagem para <strong class="text-brand-orange">contato@economizecomapp.com.br</strong></p>
+            container.innerHTML = `
+                <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                    <div class="glass-card rounded-2xl p-8 border border-slate-800">
+                        <h2 class="text-3xl font-extrabold text-white text-center mb-2">Entre em Contato</h2>
+                        <p class="text-slate-400 text-center text-sm mb-8">Dúvidas, sugestões ou parcerias? Envie sua mensagem para <strong class="text-brand-orange">contato@economizecomapp.com.br</strong></p>
 
-                <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
-                    <!-- WEB3FORMS CONFIG -->
-                    <input type="hidden" name="access_key" value="e267e45b-bbf0-46be-86a7-5714edde55c5">
-                    <input type="hidden" name="subject" value="Novo contato - economizecomapp.com.br">
-                    <input type="hidden" name="from_name" value="Site Economize com App">
-                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+                            <!-- CHAVE NOVA - VINCULADA AO CONTATO@ -->
+                            <input type="hidden" name="access_key" value="be465999-9f92-4517-a64a-f0a4e5034246">
+                            <input type="hidden" name="subject" value="Novo contato - economizecomapp.com.br">
+                            <input type="hidden" name="from_name" value="Site Economize com App">
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-                    <div>
-                        <label for="nome" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Nome Completo:</label>
-                        <input type="text" id="nome" name="name" required placeholder="Seu nome" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Nome Completo:</label>
+                                <input type="text" id="nome" name="name" required placeholder="Seu nome" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">E-mail de Contato:</label>
+                                <input type="email" id="email" name="email" required placeholder="seu@email.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Assunto:</label>
+                                <select id="assunto" name="assunto" required class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white focus:outline-none focus:border-brand-orange transition-colors">
+                                    <option value="Sugestão de Artigo" class="bg-slate-900">Sugestão de Artigo</option>
+                                    <option value="Dúvida sobre Conteúdo" class="bg-slate-900">Dúvida sobre Conteúdo</option>
+                                    <option value="Feedback Geral" class="bg-slate-900">Feedback Geral</option>
+                                    <option value="Outros" class="bg-slate-900">Outros</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Mensagem:</label>
+                                <textarea id="mensagem" name="message" rows="5" required placeholder="Escreva sua mensagem aqui..." class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors"></textarea>
+                            </div>
+
+                            <button id="submit-btn" type="submit" class="w-full py-4 rounded-xl btn-gradient text-white font-bold text-base transition-all">
+                                Enviar Mensagem
+                            </button>
+                            <p id="form-result" class="text-center text-sm mt-4 hidden"></p>
+                        </form>
                     </div>
+                </div>
+            `;
 
-                    <div>
-                        <label for="email" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">E-mail de Contato:</label>
-                        <input type="email" id="email" name="email" required placeholder="seu@email.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors">
-                    </div>
+            const form = document.getElementById('contact-form');
+            const resultEl = document.getElementById('form-result');
+            const submitBtn = document.getElementById('submit-btn');
 
-                    <div>
-                        <label for="assunto" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Assunto:</label>
-                        <select id="assunto" name="assunto" required class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white focus:outline-none focus:border-brand-orange transition-colors">
-                            <option value="Sugestão de Artigo" class="bg-slate-900">Sugestão de Artigo</option>
-                            <option value="Dúvida sobre Conteúdo" class="bg-slate-900">Dúvida sobre Conteúdo</option>
-                            <option value="Feedback Geral" class="bg-slate-900">Feedback Geral</option>
-                            <option value="Outros" class="bg-slate-900">Outros</option>
-                        </select>
-                    </div>
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                submitBtn.textContent = 'Enviando...';
+                submitBtn.disabled = true;
+                resultEl.classList.remove('hidden');
+                resultEl.className = 'text-center text-sm mt-4 text-slate-400';
+                resultEl.textContent = 'Enviando sua mensagem...';
 
-                    <div>
-                        <label for="mensagem" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Mensagem:</label>
-                        <textarea id="mensagem" name="message" rows="5" required placeholder="Escreva sua mensagem aqui..." class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors"></textarea>
-                    </div>
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
 
-                    <button id="submit-btn" type="submit" class="w-full py-4 rounded-xl btn-gradient text-white font-bold text-base transition-all">
-                        Enviar Mensagem
-                    </button>
-                    
-                    <p id="form-result" class="text-center text-sm mt-4 hidden"></p>
-                </form>
-            </div>
-        </div>
-    `;
-
-    // NOVO HANDLER DO WEB3FORMS
-    const form = document.getElementById('contact-form');
-    const resultEl = document.getElementById('form-result');
-    const submitBtn = document.getElementById('submit-btn');
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        submitBtn.textContent = 'Enviando...';
-        submitBtn.disabled = true;
-        resultEl.classList.remove('hidden');
-        resultEl.className = 'text-center text-sm mt-4 text-slate-400';
-        resultEl.textContent = 'Enviando sua mensagem...';
-
-        const formData = new FormData(form);
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
-
-        try {
-            const response = await fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: json
+                try {
+                    const response = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: json
+                    });
+                    const res = await response.json();
+                    if (res.success) {
+                        resultEl.className = 'text-center text-sm mt-4 text-green-400 font-bold';
+                        resultEl.textContent = '✅ Mensagem enviada com sucesso! Em breve responderemos.';
+                        form.reset();
+                    } else {
+                        resultEl.className = 'text-center text-sm mt-4 text-red-400';
+                        resultEl.textContent = '❌ Erro: ' + res.message;
+                    }
+                } catch (error) {
+                    resultEl.className = 'text-center text-sm mt-4 text-red-400';
+                    resultEl.textContent = '❌ Erro ao enviar. Tente novamente.';
+                } finally {
+                    submitBtn.textContent = 'Enviar Mensagem';
+                    submitBtn.disabled = false;
+                }
             });
-            
-            const res = await response.json();
-
-            if (res.success) {
-                resultEl.className = 'text-center text-sm mt-4 text-green-400';
-                resultEl.textContent = '✅ Mensagem enviada com sucesso! Em breve responderemos.';
-                form.reset();
-            } else {
-                resultEl.className = 'text-center text-sm mt-4 text-red-400';
-                resultEl.textContent = '❌ Erro: ' + res.message;
-            }
-        } catch (error) {
-            resultEl.className = 'text-center text-sm mt-4 text-red-400';
-            resultEl.textContent = '❌ Erro ao enviar. Tente novamente.';
-        } finally {
-            submitBtn.textContent = 'Enviar Mensagem';
-            submitBtn.disabled = false;
-            setTimeout(() => {
-                resultEl.classList.add('hidden');
-            }, 5000);
         }
-    });
-}
 
         function renderPrivacyView() {
             const container = document.getElementById('app-container');
