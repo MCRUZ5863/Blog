@@ -1384,10 +1384,9 @@ document.addEventListener("DOMContentLoaded", function() {
                         <p class="text-slate-400 text-center text-sm mb-8">Dúvidas, sugestões ou parcerias? Envie sua mensagem para <strong class="text-brand-orange">contato@economizecomapp.com.br</strong></p>
 
                         <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
-                            <!-- CHAVE NOVA - VINCULADA AO CONTATO@ -->
                             <input type="hidden" name="access_key" value="be465999-9f92-4517-a64a-f0a4e5034246">
+                            <input type="hidden" name="from_name" value="EconomizeComApp">
                             <input type="hidden" name="subject" value="Novo contato - economizecomapp.com.br">
-                            <input type="hidden" name="from_name" value="Site Economize com App">
                             <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
                             <div>
@@ -1437,7 +1436,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 resultEl.textContent = 'Enviando sua mensagem...';
 
                 const formData = new FormData(form);
+                // Pega o email que o cliente digitou para o reply-to funcionar
+                const userEmail = formData.get('email');
+                const userName = formData.get('name');
+                
                 const object = Object.fromEntries(formData);
+                // Força o replyto ser o email do cliente e o subject dinâmico
+                object.replyto = userEmail;
+                object.subject = `[${object.assunto}] Novo contato de ${userName} - EconomizeComApp`;
+                
                 const json = JSON.stringify(object);
 
                 try {
