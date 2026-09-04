@@ -1371,8 +1371,7 @@ document.addEventListener("DOMContentLoaded", function() {
             `;
 
             container.innerHTML = html;
-        }
-             function renderContactView() {
+        }function renderContactView() {
             const container = document.getElementById('app-container');
             if (!container) return;
 
@@ -1383,6 +1382,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <p class="text-slate-400 text-center text-sm mb-8">Dúvidas, sugestões ou parcerias? Envie sua mensagem para <strong class="text-brand-orange">contato@economizecomapp.com.br</strong></p>
 
                         <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+                            <!-- CONFIG WEB3FORMS - CORRIGIDO -->
                             <input type="hidden" name="access_key" value="be465999-9f92-4517-a64a-f0a4e5034246">
                             <input type="hidden" name="from_name" value="EconomizeComApp">
                             <input type="hidden" name="subject" value="Novo contato - economizecomapp.com.br">
@@ -1390,27 +1390,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
                             <div>
                                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Nome Completo:</label>
-                                <input type="text" id="nome" name="name" required placeholder="Seu nome" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors">
+                                <input type="text" name="name" required placeholder="Seu nome" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors">
                             </div>
 
                             <div>
                                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">E-mail de Contato:</label>
-                                <input type="email" id="email" name="email" required placeholder="seu@email.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors">
+                                <input type="email" name="email" required placeholder="seu@email.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors">
                             </div>
 
                             <div>
                                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Assunto:</label>
-                                <select id="assunto" name="assunto" required class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white focus:outline-none focus:border-brand-orange transition-colors">
-                                    <option value="Sugestão de Artigo" class="bg-slate-900">Sugestão de Artigo</option>
-                                    <option value="Dúvida sobre Conteúdo" class="bg-slate-900">Dúvida sobre Conteúdo</option>
-                                    <option value="Feedback Geral" class="bg-slate-900">Feedback Geral</option>
-                                    <option value="Outros" class="bg-slate-900">Outros</option>
+                                <select name="assunto" required class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white focus:outline-none focus:border-brand-orange transition-colors">
+                                    <option value="Sugestão de Artigo">Sugestão de Artigo</option>
+                                    <option value="Dúvida sobre Conteúdo">Dúvida sobre Conteúdo</option>
+                                    <option value="Feedback Geral">Feedback Geral</option>
+                                    <option value="Outros">Outros</option>
                                 </select>
                             </div>
 
                             <div>
                                 <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Mensagem:</label>
-                                <textarea id="mensagem" name="message" rows="5" required placeholder="Escreva sua mensagem aqui..." class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors"></textarea>
+                                <textarea name="message" rows="5" required placeholder="Escreva sua mensagem aqui..." class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-brand-orange transition-colors"></textarea>
                             </div>
 
                             <button id="submit-btn" type="submit" class="w-full py-4 rounded-xl btn-gradient text-white font-bold text-base transition-all">
@@ -1435,15 +1435,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 resultEl.textContent = 'Enviando sua mensagem...';
 
                 const formData = new FormData(form);
-                // Pega o email que o cliente digitou para o reply-to funcionar
-                const userEmail = formData.get('email');
-                const userName = formData.get('name');
-                
                 const object = Object.fromEntries(formData);
-                // Força o replyto ser o email do cliente e o subject dinâmico
-                object.replyto = userEmail;
-                object.subject = `[${object.assunto}] Novo contato de ${userName} - EconomizeComApp`;
-                
                 const json = JSON.stringify(object);
 
                 try {
